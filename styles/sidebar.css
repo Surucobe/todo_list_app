@@ -1,0 +1,9 @@
+.sidebar-sections{}
+
+.user-container{}
+
+.main-list{
+  li {
+    list-style: none;
+  }
+}

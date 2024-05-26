@@ -1,0 +1,11 @@
+.to-do_list_container {
+  height: 100%;
+  width: 100%;
+}
+
+.feature-list{
+  border: 1px solid #000;
+  border-radius: 8px;
+  width: 300px;
+  height: 300px;
+}

@@ -1,6 +1,15 @@
-.sidebar-sections{}
+.sidebar-sections{
+  background-color: salmon;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
 
-.user-container{}
+.user-container{
+  display: flex;
+  flex-direction: column;
+  border: 1px solid #000;
+}
 
 .main-list{
   li {

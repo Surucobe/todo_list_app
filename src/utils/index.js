@@ -1,11 +1,11 @@
 //SUGGESTION: create container inside to add the items to
-const createListContainer = (title) => {
+export const createListContainer = (titleArg) => {
   const container = document.createElement('div');
 
   const titleContainer = document.createElement('div');
   
   const title = document.createElement('h3');
-  title.innerHTML = title;
+  title.innerHTML = titleArg;
   const divider = document.createElement('hr');
   divider.classList.add('solid');
 
@@ -17,9 +17,16 @@ const createListContainer = (title) => {
   return container;
 }
 
-const addToListContainer = (content) => {
+export const addTodoListContainer = (content) => {
   const listElement = document.createElement('div');
-  listElement.innerHTML = `<input type='checkbox' /> ${content}`
+  listElement = listElement.type = 'checkbox'
+  listElement.innerHTML = content;
 
   return listElement;
+}
+
+export const createHtmlElm = (elm) => {
+  const element = document.createElement(elm);
+
+  return element;
 }

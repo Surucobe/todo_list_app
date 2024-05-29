@@ -1,14 +1,20 @@
 //reserved for the import on the styles
 import '../styles/sidebar.css';
 
+import userPicture from './assets/images/diabellstar.jpg';
+
 const sidebar = () => {
   const sidebar = document.createElement('div');
   sidebar.classList.add('sidebar-sections');
 
   const user = document.createElement('div');
   user.classList.add('user-container');
-  user.innerHTML = `<img src="" alt="user profile image" />
-  <span>smal text</span>`;
+  const userImage = new Image();
+  userImage.src = userPicture
+  user.appendChild(userImage);
+  const userSpan = document.createElement('span');
+  userSpan.innerHTML = `smal text`;
+  user.appendChild(userSpan);
   sidebar.appendChild(user);
 
   const mainList = document.createElement('div');

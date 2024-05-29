@@ -7,6 +7,8 @@
 
 body {
   box-sizing: border-box;
+  background-color: #232946;
+  color: #fff;
 }
 
 #app {

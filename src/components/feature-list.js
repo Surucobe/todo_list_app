@@ -1,14 +1,21 @@
-import { createListContainer, addTodoListContainer, createHtmlElm } from './utils'; 
+import {
+  createListContainer, 
+  addTodoListContainer, 
+  createHtmlElm,
+  addNewItem
+} from '../utils'; 
 
-import '../styles/to-do.css';
+import '../../styles/to-do.css';
 
-function handleCheckClick(){ alert('i exist!');}
+function handleCheckClick(){
+  alert('i exist!');
+}
 
 const toDoContainer = () => {
-  const toDo = document.createElement('div');
+  const toDo = createHtmlElm('div');
   toDo.classList.add('to-do_list_container');
 
-  const featuredContainer = document.createElement('div');
+  const featuredContainer = createHtmlElm('div');
   featuredContainer.classList.add('feature-list');
   featuredContainer.innerHTML = `<div>
     <h2>Main</h2>
@@ -16,7 +23,7 @@ const toDoContainer = () => {
     </div>`
   toDo.appendChild(featuredContainer);
 
-  const featuredItem = document.createElement('div');
+  const featuredItem = createHtmlElm('div');
   featuredItem.classList.add('feature-item');
   featuredItem.innerHTML = `<div>
   <h3>Project</h3>
@@ -28,15 +35,11 @@ const toDoContainer = () => {
   <li><input type='checkbox' /> Test for any potential bugs</li>
   <li><input type='checkbox' /> Deploy</li>
   </ul>`;
-  const addNew = createHtmlElm('div');
-  addNew.classList.add('add-new-element')
-  addNew.innerHTML = '<span>+</span>';
-  featuredItem.appendChild(addNew);
+  
+  featuredItem.appendChild(addNewItem());
   featuredContainer.appendChild(featuredItem);
-  const addNewSection = createHtmlElm('div');
-  addNewSection.innerHTML = '<span>+</span>';
-  addNewSection.classList.add('add-new-element')
-  featuredContainer.appendChild(addNewSection);
+  
+  featuredContainer.appendChild(addNewItem());
   
   return toDo;
 }

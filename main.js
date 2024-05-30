@@ -1,8 +1,8 @@
 const app = document.getElementById('app');
 
 //importation of modules
-import sidebar from "./src/sidebar.js";
-import toDoContainer from "./src/main.js";
+import sidebar from "./src/components/sidebar.js";
+import toDoContainer from "./src/components/feature-list.js";
 
 import './styles/global.css';
 

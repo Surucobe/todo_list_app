@@ -1,7 +1,7 @@
 //reserved for the import on the styles
-import '../styles/sidebar.css';
+import '../../styles/sidebar.css';
 
-import userPicture from './assets/images/diabellstar.jpg';
+import userPicture from '../assets/images/diabellstar.jpg';
 
 const sidebar = () => {
   const sidebar = document.createElement('div');

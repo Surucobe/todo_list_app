@@ -55,13 +55,17 @@ hr.solid {
   border-radius: 8px;
   background-color: #121629;
   padding: 15px;
-  font-size: 20px;
+  /* font-size: 20px; */
 }
 
 .add-new-element {
   font-weight: 600;
   font-size: 1.5em;
-  span {
-    cursor: pointer;
-  }
+  cursor: pointer;
+  padding-left: 8px;
+  border-radius: 8px;
+}
+.add-new-element:hover{
+  background-color: #fff;
+  color: #000;
 }

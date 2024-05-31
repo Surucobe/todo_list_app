@@ -1,45 +1,38 @@
-import {
-  createListContainer, 
-  addTodoListContainer, 
-  createHtmlElm,
-  addNewItem
-} from '../utils'; 
+import todoListConstruction from '../utils';
 
 import '../../styles/to-do.css';
 
-function handleCheckClick(){
-  alert('i exist!');
-}
+const main = todoListConstruction()
 
 const toDoContainer = () => {
-  const toDo = createHtmlElm('div');
+  const toDo = document.createElement('div');
   toDo.classList.add('to-do_list_container');
 
-  const featuredContainer = createHtmlElm('div');
+  const featuredContainer = document.createElement('div');
   featuredContainer.classList.add('feature-list');
   featuredContainer.innerHTML = `<div>
     <h2>Main</h2>
-    <p>Total accurate descripton</p>
+    <textarea readonly>Total accurate descripton</textarea>
     </div>`
   toDo.appendChild(featuredContainer);
 
-  const featuredItem = createHtmlElm('div');
+  const featuredItem = document.createElement('div');
   featuredItem.classList.add('feature-item');
   featuredItem.innerHTML = `<div>
   <h3>Project</h3>
   <hr class="solid">
   </div>
   <ul>
-  <li><input onclick="handleCheckClick()" type='checkbox' /> Make the project look good</li>
+  <li><input type='checkbox'> Make the project look good</input></li>
   <li><input type='checkbox' /> Make the project fully functional</li>
   <li><input type='checkbox' /> Test for any potential bugs</li>
   <li><input type='checkbox' /> Deploy</li>
   </ul>`;
   
-  featuredItem.appendChild(addNewItem());
+  featuredItem.appendChild(main.addNewItem());
   featuredContainer.appendChild(featuredItem);
   
-  featuredContainer.appendChild(addNewItem());
+  featuredContainer.appendChild(main.addNewItem());
   
   return toDo;
 }

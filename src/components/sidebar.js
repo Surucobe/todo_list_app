@@ -13,7 +13,7 @@ const sidebar = () => {
   userImage.src = userPicture
   user.appendChild(userImage);
   const userSpan = document.createElement('span');
-  userSpan.innerHTML = `smal text`;
+  userSpan.innerHTML = `small text`;
   user.appendChild(userSpan);
   sidebar.appendChild(user);
 

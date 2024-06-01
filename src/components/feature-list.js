@@ -22,17 +22,16 @@ const toDoContainer = () => {
   <h3>Project</h3>
   <hr class="solid">
   </div>
-  <ul>
-  <li><input type='checkbox'> Make the project look good</input></li>
-  <li><input type='checkbox' /> Make the project fully functional</li>
-  <li><input type='checkbox' /> Test for any potential bugs</li>
-  <li><input type='checkbox' /> Deploy</li>
-  </ul>`;
+  <div><input type='checkbox'> Make the project look good</input></div>
+  <div><input type='checkbox' /> Make the project fully functional</div>
+  <div><input type='checkbox' /> Test for any potential bugs</div>
+  <div><input type='checkbox' /> Deploy</div>`;
   
-  featuredItem.appendChild(main.addNewItem());
+  featuredItem.appendChild(main.addNewItemToPage());
   featuredContainer.appendChild(featuredItem);
+  featuredContainer.appendChild(main.returnListContainer('Testing'));
   
-  featuredContainer.appendChild(main.addNewItem());
+  featuredContainer.appendChild(main.addNewItemToPage());
   
   return toDo;
 }

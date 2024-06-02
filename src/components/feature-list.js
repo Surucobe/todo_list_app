@@ -28,6 +28,7 @@ const toDoContainer = () => {
   <div><input type='checkbox' /> Deploy</div>`;
   
   featuredItem.appendChild(main.addNewItemToPage());
+  featuredItem.appendChild(main.addTodoItemToList('testing'));
   featuredContainer.appendChild(featuredItem);
   featuredContainer.appendChild(main.returnListContainer('Testing'));
   

@@ -21,22 +21,30 @@ const todoListConstruction = function() {
     textareaDescription.readOnly = true;
   }
 
+  const handleCheckItem = (elm) => {
+    elm.addEventListener('click', (e) =>{
+      if(elm.childNodes[0].checked){
+          elm.style.textDecoration = 'line-through'
+      }else{
+          elm.style.textDecoration = 'none'
+      }
+  })
+  }
+
   //TODO: add functionality to add a line through as the input is checked
   //This one goes inside the containers to add a new item to the list
   const addTodoItemToList = (content) => {
-    const checkItem = () => {
-      console.log(this)
-    }
+    const text = document.createTextNode(content);
+    const listItemContainer = document.createElement('div');
+    const listItemInput = document.createElement('input')
+    listItemInput.type = 'checkbox';
 
-    const listItem = document.createElement('input');
-    listItem.type = 'checkbox'
-    listItem.innerHTML = `${listItem} ${content}`;
+    listItemContainer.appendChild(listItemInput);
+    listItemContainer.appendChild(text);
 
-    listItem.addEventListener('click', (e) => {
-      checkItem();
-    })
+    handleCheckItem(listItemContainer);
 
-    return listItem;
+    return listItemContainer;
   };
 
   //SUGGESTION: create container inside to add the items to
@@ -70,7 +78,7 @@ const todoListConstruction = function() {
     return todoList;
   }
 
-  return {addNewItemToPage, returnListContainer}
+  return {addNewItemToPage, returnListContainer, addTodoItemToList}
 }
 
 export default todoListConstruction;

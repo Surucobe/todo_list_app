@@ -5,33 +5,21 @@ import '../../styles/to-do.css';
 const main = todoListConstruction()
 
 const toDoContainer = () => {
+  //Crea contenedor para las listas
   const toDo = document.createElement('div');
   toDo.classList.add('to-do_list_container');
 
+  //this part contains all the lists inside the section
   const featuredContainer = document.createElement('div');
   featuredContainer.classList.add('feature-list');
-  featuredContainer.innerHTML = `<div>
-    <h2>Main</h2>
-    <textarea readonly>Total accurate descripton</textarea>
-    </div>`
-  toDo.appendChild(featuredContainer);
-
-  const featuredItem = document.createElement('div');
-  featuredItem.classList.add('feature-item');
-  featuredItem.innerHTML = `<div>
-  <h3>Project</h3>
-  <hr class="solid">
-  </div>
-  <div><input type='checkbox'> Make the project look good</input></div>
-  <div><input type='checkbox' /> Make the project fully functional</div>
-  <div><input type='checkbox' /> Test for any potential bugs</div>
-  <div><input type='checkbox' /> Deploy</div>`;
+  //this part hold the header of the section, it must be move somewhere else in the future
+  const listHeader = document.createElement('div');
+  listHeader.innerHTML = `<h2>Main</h2>
+    <textarea readonly>Total accurate descripton</textarea>`
+    featuredContainer.appendChild(listHeader);
+    toDo.appendChild(featuredContainer);  
   
-  featuredItem.appendChild(main.addNewItemToPage());
-  featuredItem.appendChild(main.addTodoItemToList('testing'));
-  featuredContainer.appendChild(featuredItem);
-  featuredContainer.appendChild(main.returnListContainer('Testing'));
-  
+  featuredContainer.appendChild(main.returnListContainer('Main Testing List'));
   featuredContainer.appendChild(main.addNewItemToPage());
   
   return toDo;

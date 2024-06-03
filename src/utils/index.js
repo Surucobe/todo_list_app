@@ -1,8 +1,8 @@
 //TODO: find a better shorter name
 const todoListConstruction = function() {
 
-  const handleNewElement = () => {
-    alert('works');
+  const handleNewElement = (container, elm) => {
+    container.appendChild(elm);
   };
 
   //Adds new item to the page
@@ -10,8 +10,6 @@ const todoListConstruction = function() {
     const add = document.createElement('div');
     add.classList.add('add-new-element');
     add.innerHTML = '<span>+</span>';
-
-    add.addEventListener('click', handleNewElement)
 
     return add;
   };
@@ -73,7 +71,13 @@ const todoListConstruction = function() {
 
   const returnListContainer = (containerArg, inputArg) => {
     const todoList = createListContainer(containerArg);
-    todoList.appendChild(addNewItemToPage());
+    const inputContainers = document.createElement('div')
+    const addNew = addNewItemToPage();
+
+    addNew.addEventListener('click', () => handleNewElement(inputContainers, addTodoItemToList('test')))
+
+    todoList.appendChild(inputContainers)
+    todoList.appendChild(addNew)
     
     return todoList;
   }

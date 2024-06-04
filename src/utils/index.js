@@ -6,10 +6,14 @@ const todoListConstruction = function() {
   };
 
   //Adds new item to the page
-  const addNewItemToPage = () => {
+  const addNewItemToPage = (elm) => {
     const add = document.createElement('div');
     add.classList.add('add-new-element');
     add.innerHTML = '<span>+</span>';
+
+    add.addEventListener('click', () => {
+      elm.appendChild(returnListContainer('testing'))
+    });
 
     return add;
   };
@@ -71,10 +75,11 @@ const todoListConstruction = function() {
 
   const returnListContainer = (containerArg, inputArg) => {
     const todoList = createListContainer(containerArg);
-    const inputContainers = document.createElement('div')
+    const inputContainers = document.createElement('div');
+    inputContainers.classList.add('feature-item-inputs');
     const addNew = addNewItemToPage();
 
-    addNew.addEventListener('click', () => handleNewElement(inputContainers, addTodoItemToList('test')))
+    addNew.addEventListener('click', () => handleNewElement(inputContainers, addTodoItemToList('Test')))
 
     todoList.appendChild(inputContainers)
     todoList.appendChild(addNew)

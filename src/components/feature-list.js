@@ -20,7 +20,7 @@ const toDoContainer = () => {
     toDo.appendChild(featuredContainer);  
   
   featuredContainer.appendChild(main.returnListContainer('Main Testing List'));
-  featuredContainer.appendChild(main.addNewItemToPage());
+  featuredContainer.appendChild(main.addNewItemToPage(featuredContainer));
   
   return toDo;
 }

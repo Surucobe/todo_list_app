@@ -32,6 +32,9 @@
   input{
     cursor: pointer;
   }
+  input:checked::before{
+    transform: scale(1);
+  }
 }
 
 hr.solid {
@@ -49,13 +52,16 @@ hr.solid {
   padding: 15px;
   div {
     line-height: 30px;
-    display: flex;
-    align-items: center;
-    column-gap: 8px;
     font-weight: 600;
   }
-  :first-child{
-    display: block;
+}
+
+.feature-item-inputs {
+  padding-left: 5px;
+  div {
+    display: flex;
+    align-items: center;
+    column-gap: 10px;
   }
 }
 

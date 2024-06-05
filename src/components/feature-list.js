@@ -15,12 +15,14 @@ const toDoContainer = () => {
   //this part hold the header of the section, it must be move somewhere else in the future
   const listHeader = document.createElement('div');
   listHeader.innerHTML = `<h2>Main</h2>
-    <textarea readonly>Total accurate descripton</textarea>`
+    <textarea>Total accurate descripton</textarea>`
     featuredContainer.appendChild(listHeader);
     toDo.appendChild(featuredContainer);  
   
   featuredContainer.appendChild(main.returnListContainer('Main Testing List'));
-  featuredContainer.appendChild(main.addNewItemToPage(featuredContainer));
+  const addNewList = main.addNewItemToPage();
+  addNewList.addEventListener('click', () => main.handleNewElement(featuredContainer, main.returnListContainer('Template'), addNewList))
+  featuredContainer.appendChild(addNewList);
   
   return toDo;
 }

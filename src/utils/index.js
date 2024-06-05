@@ -1,28 +1,25 @@
 //TODO: find a better shorter name
 const todoListConstruction = function() {
 
-  const handleNewElement = (container, elm) => {
-    container.appendChild(elm);
+  const handleNewElement = (container, elm, ref) => {
+    container.insertBefore(elm, ref);
   };
 
   //Adds new item to the page
-  const addNewItemToPage = (elm) => {
+  const addNewItemToPage = () => {
     const add = document.createElement('div');
     add.classList.add('add-new-element');
     add.innerHTML = '<span>+</span>';
 
-    add.addEventListener('click', () => {
-      elm.appendChild(returnListContainer('testing'))
-    });
-
     return add;
   };
 
+  //Yet to be implemented
   const descriptionText = () => {
     const textareaDescription = document.createElement('textarea');
-    textareaDescription.readOnly = true;
   }
 
+  //TODO: check if this can be done with nothing but CSS
   const handleCheckItem = (elm) => {
     elm.addEventListener('click', (e) =>{
       if(elm.childNodes[0].checked){
@@ -33,10 +30,11 @@ const todoListConstruction = function() {
   })
   }
 
-  //TODO: add functionality to add a line through as the input is checked
+  //TODO: fix styles
   //This one goes inside the containers to add a new item to the list
   const addTodoItemToList = (content) => {
-    const text = document.createTextNode(content);
+    const text = document.createElement('textarea');
+    text.innerHTML = content;
     const listItemContainer = document.createElement('div');
     const listItemInput = document.createElement('input')
     listItemInput.type = 'checkbox';
@@ -75,19 +73,16 @@ const todoListConstruction = function() {
 
   const returnListContainer = (containerArg, inputArg) => {
     const todoList = createListContainer(containerArg);
-    const inputContainers = document.createElement('div');
-    inputContainers.classList.add('feature-item-inputs');
     const addNew = addNewItemToPage();
 
-    addNew.addEventListener('click', () => handleNewElement(inputContainers, addTodoItemToList('Test')))
+    addNew.addEventListener('click', () => handleNewElement(todoList, addTodoItemToList('Test'), addNew))
 
-    todoList.appendChild(inputContainers)
     todoList.appendChild(addNew)
     
     return todoList;
   }
 
-  return {addNewItemToPage, returnListContainer, addTodoItemToList}
+  return {addNewItemToPage, returnListContainer, addTodoItemToList, handleNewElement}
 }
 
 export default todoListConstruction;

@@ -1,9 +1,17 @@
 //TODO: find a better shorter name
-const todoListConstruction = function() {
+const createTodoSection = () => {
+  const sectionCreation = () => {}
+}
 
+const todoListConstruction = function() {
   const handleNewElement = (container, elm, ref) => {
     container.insertBefore(elm, ref);
   };
+
+  const priorityLevel = () => {
+    let priority = 'Low';
+    return 'Low';
+  }
 
   //Adds new item to the page
   const addNewItemToPage = () => {
@@ -23,9 +31,9 @@ const todoListConstruction = function() {
   const handleCheckItem = (elm) => {
     elm.addEventListener('click', (e) =>{
       if(elm.childNodes[0].checked){
-          elm.style.textDecoration = 'line-through'
+          elm.style.textDecoration = 'line-through';
       }else{
-          elm.style.textDecoration = 'none'
+          elm.style.textDecoration = 'none';
       }
   })
   }
@@ -33,14 +41,26 @@ const todoListConstruction = function() {
   //TODO: fix styles
   //This one goes inside the containers to add a new item to the list
   const addTodoItemToList = (content) => {
+    const listItemContainer = document.createElement('div');
+    
     const text = document.createElement('textarea');
     text.innerHTML = content;
-    const listItemContainer = document.createElement('div');
-    const listItemInput = document.createElement('input')
+    text.maxLength = '50';
+    
+    const listItemInput = document.createElement('input');
     listItemInput.type = 'checkbox';
+
+    const dueDate = document.createElement('input');
+    dueDate.classList.add('due-date');
+    dueDate.type = 'date';
+
+    const priority = document.createElement('div');
+    priority.innerHTML = priorityLevel();
 
     listItemContainer.appendChild(listItemInput);
     listItemContainer.appendChild(text);
+    listItemContainer.appendChild(dueDate);
+    listItemContainer.appendChild(priority);
 
     handleCheckItem(listItemContainer);
 

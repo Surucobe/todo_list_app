@@ -24,16 +24,17 @@
     padding: 5px;
     border: 1px solid #fff;
     border-radius: 8px;
+    border-top-left-radius: initial;
+    border-bottom-left-radius: initial;
     max-width: 35%;
     outline: none;
     resize: none;
     cursor: pointer;
   }
-  input{
+  input[type='checkbox']{
     cursor: pointer;
-  }
-  input:checked::before{
-    transform: scale(1);
+    width: 20px;
+    height: 20px;
   }
 }
 
@@ -64,6 +65,19 @@ hr.solid {
   :last-child{
     display: block;
   }
+  textarea{
+    cursor: initial;
+    height: 30px;
+    min-width: 450px;
+    max-width: 650px;
+    display: flex;
+    align-items: center;
+    justify-self: initial;
+    box-sizing: border-box;
+    border: 2px solid;
+    border: 2px solid #fff;
+    border-radius: 8px;
+  }
 }
 
 .add-new-element {
@@ -76,4 +90,20 @@ hr.solid {
 .add-new-element:hover{
   background-color: #fff;
   color: #000;
+}
+
+.due-date {
+  color: #fff;
+  background-color: #000;
+  border: 2px solid;
+  border-radius: 8px;
+  padding: 2px;
+  height: 30px;
+  box-sizing: border-box;
+  display: flex;
+  justify-content: center;
+}
+input::-webkit-calendar-picker-indicator{
+  filter: invert(1);
+  cursor: pointer;
 }

@@ -1,6 +1,17 @@
 //TODO: find a better shorter name
-const createTodoSection = () => {
-  const sectionCreation = () => {}
+const collection = () => {
+  const Collection = [
+    {
+      id: 'main',
+      todo: [],
+    }
+  ]
+
+  function newElmentForCollection(obj){
+    collection.push(obj)
+  }
+
+  return collection;
 }
 
 const todoListConstruction = function() {

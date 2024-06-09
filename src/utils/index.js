@@ -1,21 +1,50 @@
 //TODO: find a better shorter name
-const collection = () => {
-  const Collection = [
+const Collection = (function(){
+  const CollectionList = [
     {
       id: 'main',
+      description: 'Total accurate descripton',
       todo: [],
     }
   ]
 
+  const getCollection = () => CollectionList;
+
   function newElmentForCollection(obj){
-    collection.push(obj)
+    CollectionList.push(obj);
+    console.log(obj);
   }
 
-  return collection;
-}
+  return {getCollection, newElmentForCollection};
+})();
 
-const todoListConstruction = function() {
+const renderTodoLists = function() {
+  const createrNewElement = (elm) => {
+    return document.createElement(elm);
+  }
+
+  const { getCollection, newElmentForCollection } = Collection
+
+  const renderHeader = () => {
+    const {id, description} = getCollection()[0];
+
+    const header = createrNewElement('div');
+    header.classList.add('header');
+
+    const headerTitle = createrNewElement('h2');
+    headerTitle.innerHTML = id;
+
+    const headerDescription = createrNewElement('textarea');
+    headerDescription.innerHTML = description;
+
+    header.appendChild(headerTitle);
+    header.appendChild(headerDescription);
+
+    console.log(header);
+  }
+
   const handleNewElement = (container, elm, ref) => {
+    newElmentForCollection('testing');
     container.insertBefore(elm, ref);
   };
 
@@ -29,6 +58,7 @@ const todoListConstruction = function() {
     const add = document.createElement('div');
     add.classList.add('add-new-element');
     add.innerHTML = '<span>+</span>';
+    renderHeader()
 
     return add;
   };
@@ -102,7 +132,7 @@ const todoListConstruction = function() {
     return container;
   };
 
-  const returnListContainer = (containerArg, inputArg) => {
+  const returnListContainer = (containerArg) => {
     const todoList = createListContainer(containerArg);
     const addNew = addNewItemToPage();
 
@@ -116,4 +146,4 @@ const todoListConstruction = function() {
   return {addNewItemToPage, returnListContainer, addTodoItemToList, handleNewElement}
 }
 
-export default todoListConstruction;
+export default renderTodoLists;

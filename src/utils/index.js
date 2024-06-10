@@ -2,9 +2,15 @@
 const Collection = (function(){
   const CollectionList = [
     {
-      id: 'main',
+      id: 'Main',
       description: 'Total accurate descripton',
-      todo: [],
+      todo: [
+        {
+          checked: false,
+          text: 'Testing this',
+          priority: 'Low'
+        }
+      ],
     }
   ]
 
@@ -19,11 +25,12 @@ const Collection = (function(){
 })();
 
 const renderTodoLists = function() {
+  
+  const { getCollection, newElmentForCollection } = Collection
+  
   const createrNewElement = (elm) => {
     return document.createElement(elm);
   }
-
-  const { getCollection, newElmentForCollection } = Collection
 
   const renderHeader = () => {
     const {id, description} = getCollection()[0];
@@ -40,7 +47,7 @@ const renderTodoLists = function() {
     header.appendChild(headerTitle);
     header.appendChild(headerDescription);
 
-    console.log(header);
+    return header;
   }
 
   const handleNewElement = (container, elm, ref) => {
@@ -143,7 +150,7 @@ const renderTodoLists = function() {
     return todoList;
   }
 
-  return {addNewItemToPage, returnListContainer, addTodoItemToList, handleNewElement}
+  return {addNewItemToPage, returnListContainer, addTodoItemToList, handleNewElement, renderHeader}
 }
 
 export default renderTodoLists;

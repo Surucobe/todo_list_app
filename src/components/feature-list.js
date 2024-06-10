@@ -14,18 +14,15 @@ const toDoContainer = () => {
   featuredContainer.classList.add('feature-list');
 
   //this part hold the header of the section, it must be move somewhere else in the future
-  const listHeader = document.createElement('div');
-  listHeader.classList.add('header');
-  listHeader.innerHTML = `<h2>Main</h2>
-    <textarea>Total accurate descripton</textarea>`
+  const listHeader = main.renderHeader();
   featuredContainer.appendChild(listHeader);
-  toDo.appendChild(featuredContainer);
-
-
+  
   featuredContainer.appendChild(main.returnListContainer('Main Testing List'));
   const addNewList = main.addNewItemToPage();
-  // addNewList.addEventListener('click', () => main.handleNewElement(featuredContainer, main.returnListContainer('Template'), addNewList))
-  // featuredContainer.appendChild(addNewList);
+  addNewList.addEventListener('click', () => main.handleNewElement(featuredContainer, main.returnListContainer('Template'), addNewList))
+  featuredContainer.appendChild(addNewList);
+  
+  toDo.appendChild(featuredContainer);
   
   return toDo;
 }

@@ -13,9 +13,8 @@ const toDoContainer = () => {
   const featuredContainer = document.createElement('div');
   featuredContainer.classList.add('feature-list');
 
-  //this part hold the header of the section, it must be move somewhere else in the future
-  const listHeader = main.renderHeader();
-  featuredContainer.appendChild(listHeader);
+  //render header
+  featuredContainer.appendChild(main.renderHeader());
   
   featuredContainer.appendChild(main.returnListContainer('Main Testing List'));
   const addNewList = main.addNewItemToPage();

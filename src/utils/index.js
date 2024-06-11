@@ -4,13 +4,19 @@ const Collection = (function(){
     {
       id: 'Main',
       description: 'Total accurate descripton',
-      todo: [
+      todoCollection: [
         {
-          checked: false,
-          text: 'Testing this',
-          priority: 'Low'
+          title: 'Testing new approach',
+          todoList: [
+            {
+              checked: false,
+              text: 'totally legit text that at least is not lorem ipsum',
+              dueDate: '0/0/0',
+              priority: 'Low'
+            }
+          ]
         }
-      ],
+      ]
     }
   ]
 
@@ -27,21 +33,18 @@ const Collection = (function(){
 const renderTodoLists = function() {
   
   const { getCollection, newElmentForCollection } = Collection
-  
-  const createrNewElement = (elm) => {
-    return document.createElement(elm);
-  }
 
+  //find new approach for this
   const renderHeader = () => {
     const {id, description} = getCollection()[0];
 
-    const header = createrNewElement('div');
+    const header = document.createElement('div');
     header.classList.add('header');
 
-    const headerTitle = createrNewElement('h2');
+    const headerTitle = document.createElement('h2');
     headerTitle.innerHTML = id;
 
-    const headerDescription = createrNewElement('textarea');
+    const headerDescription = document.createElement('textarea');
     headerDescription.innerHTML = description;
 
     header.appendChild(headerTitle);
@@ -50,15 +53,67 @@ const renderTodoLists = function() {
     return header;
   }
 
-  const handleNewElement = (container, elm, ref) => {
-    newElmentForCollection('testing');
-    container.insertBefore(elm, ref);
+  const createListContainer = (todoTitle) => {
+    const container = document.createElement('div');
+    container.classList.add('feature-item');
+
+    const titleContainer = document.createElement('div');
+    
+    const title = document.createElement('h3');
+    title.innerHTML = todoTitle;
+    const divider = document.createElement('hr');
+    divider.classList.add('solid');
+    const list = document.createElement('ul');
+
+    titleContainer.appendChild(title);
+    titleContainer.appendChild(divider);
+    titleContainer.appendChild(list);
+    
+    container.appendChild(titleContainer);
+
+    return container;
   };
 
-  const priorityLevel = () => {
-    let priority = 'Low';
-    return 'Low';
+  const priorityElement = () => {
+    const select = document.createElement('select');
+
+    const defaultOption = document.createElement('option');
+    defaultOption.innerHTML = 'Priority';
+    defaultOption.defaultSelected = true;
+    defaultOption.disabled = true;
+    defaultOption.style.color = 'white';
+    select.appendChild(defaultOption);
+
+    const low = document.createElement('option');
+    low.value = 'green';
+    low.style.color = 'green';
+    low.innerHTML = 'Low';
+    select.appendChild(low);
+
+    const important = document.createElement('option');
+    important.value = 'orange';
+    important.style.color = 'orange';
+    important.innerHTML = 'Important';
+    select.appendChild(important);
+
+    const urgent = document.createElement('option');
+    urgent.value = 'red';
+    urgent.style.color = 'red';
+    urgent.innerHTML = 'Low';
+    select.appendChild(urgent);
+
+    select.addEventListener('change', (e) => {
+      const color = e.target.value;
+      e.target.style.color = color;
+    })
+
+    return select;
   }
+
+  const handleNewElement = (container, elm, ref) => {
+    // newElmentForCollection('testing');
+    container.insertBefore(elm, ref);
+  };
 
   //Adds new item to the page
   const addNewItemToPage = () => {
@@ -71,8 +126,11 @@ const renderTodoLists = function() {
   };
 
   //Yet to be implemented
-  const descriptionText = () => {
+  const descriptionText = (className) => {
     const textareaDescription = document.createElement('textarea');
+    textareaDescription.classList.add(className);
+
+    return textareaDescription;
   }
 
   //TODO: check if this can be done with nothing but CSS
@@ -102,8 +160,7 @@ const renderTodoLists = function() {
     dueDate.classList.add('due-date');
     dueDate.type = 'date';
 
-    const priority = document.createElement('div');
-    priority.innerHTML = priorityLevel();
+    const priority = priorityElement();
 
     listItemContainer.appendChild(listItemInput);
     listItemContainer.appendChild(text);
@@ -115,33 +172,11 @@ const renderTodoLists = function() {
     return listItemContainer;
   };
 
-  //SUGGESTION: create container inside to add the items to
-  //Description should be able to be edit at any given point
-  //The use of a modal in order to edit the description is in order
-  const createListContainer = (titleArg) => {
-    const container = document.createElement('div');
-    container.classList.add('feature-item');
-
-    const titleContainer = document.createElement('div');
-    
-    const title = document.createElement('h3');
-    title.innerHTML = titleArg;
-    const divider = document.createElement('hr');
-    divider.classList.add('solid');
-    const list = document.createElement('ul');
-
-    titleContainer.appendChild(title);
-    titleContainer.appendChild(divider);
-    titleContainer.appendChild(list);
-    
-    container.appendChild(titleContainer);
-
-    return container;
-  };
-
-  const returnListContainer = (containerArg) => {
-    const todoList = createListContainer(containerArg);
+  const returnListContainer = () => {
+    const todoList = createListContainer(Collection.getCollection()[0].todoCollection[0].title);
     const addNew = addNewItemToPage();
+
+    console.log(Collection.getCollection()[0].todoCollection)
 
     addNew.addEventListener('click', () => handleNewElement(todoList, addTodoItemToList('Test'), addNew))
 

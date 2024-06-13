@@ -1,3 +1,5 @@
+import dayjs from "dayjs";
+
 //TODO: find a better shorter name
 const Collection = (function(){
   const CollectionList = [
@@ -12,7 +14,7 @@ const Collection = (function(){
               checked: false,
               text: 'totally legit text that at least is not lorem ipsum',
               dueDate: '0/0/0',
-              priority: 'Low'
+              priority: 'important'
             }
           ]
         }
@@ -74,12 +76,20 @@ const renderTodoLists = function() {
     return container;
   };
 
-  const priorityElement = () => {
+  const calendarElement = () => {
+    const dueDate = document.createElement('input');
+    dueDate.defaultValue = dayjs().format('YYYY-MM-DD');
+    dueDate.classList.add('due-date');
+    dueDate.type = 'date';
+
+    return dueDate;
+  }
+
+  const priorityElement = (value) => {
     const select = document.createElement('select');
 
     const defaultOption = document.createElement('option');
-    defaultOption.innerHTML = 'Priority';
-    defaultOption.defaultSelected = true;
+    defaultOption.innerHTML = '- Priority -';
     defaultOption.disabled = true;
     defaultOption.style.color = 'white';
     select.appendChild(defaultOption);
@@ -99,13 +109,32 @@ const renderTodoLists = function() {
     const urgent = document.createElement('option');
     urgent.value = 'red';
     urgent.style.color = 'red';
-    urgent.innerHTML = 'Low';
+    urgent.innerHTML = 'Urgent';
     select.appendChild(urgent);
 
     select.addEventListener('change', (e) => {
       const color = e.target.value;
       e.target.style.color = color;
     })
+
+    switch (value) {
+      case 'low':
+        low.defaultSelected = true;
+        select.style.color = 'green';
+        break;
+      case 'important':
+        important.defaultSelected = true;
+        select.style.color = 'orange';
+        break;
+      case 'urgent':
+        urgent.defaultSelected = true;
+        select.style.color = 'red';
+        break;
+      default:
+        defaultOption.defaultSelected = true;
+        select.style.color = '#ccc';
+        break;
+    }
 
     return select;
   }
@@ -115,52 +144,21 @@ const renderTodoLists = function() {
     container.insertBefore(elm, ref);
   };
 
-  //Adds new item to the page
-  const addNewItemToPage = () => {
-    const add = document.createElement('div');
-    add.classList.add('add-new-element');
-    add.innerHTML = '<span>+</span>';
-    renderHeader()
-
-    return add;
-  };
-
-  //Yet to be implemented
-  const descriptionText = (className) => {
-    const textareaDescription = document.createElement('textarea');
-    textareaDescription.classList.add(className);
-
-    return textareaDescription;
-  }
-
-  //TODO: check if this can be done with nothing but CSS
-  const handleCheckItem = (elm) => {
-    elm.addEventListener('click', (e) =>{
-      if(elm.childNodes[0].checked){
-          elm.style.textDecoration = 'line-through';
-      }else{
-          elm.style.textDecoration = 'none';
-      }
-  })
-  }
-
   //TODO: fix styles
   //This one goes inside the containers to add a new item to the list
-  const addTodoItemToList = (content) => {
+  const addTodoItemToList = (obj) => {
     const listItemContainer = document.createElement('div');
     
     const text = document.createElement('textarea');
-    text.innerHTML = content;
+    text.innerHTML = obj.text;
     text.maxLength = '50';
     
     const listItemInput = document.createElement('input');
     listItemInput.type = 'checkbox';
 
-    const dueDate = document.createElement('input');
-    dueDate.classList.add('due-date');
-    dueDate.type = 'date';
+    const dueDate = calendarElement();
 
-    const priority = priorityElement();
+    const priority = priorityElement(obj.priority);
 
     listItemContainer.appendChild(listItemInput);
     listItemContainer.appendChild(text);
@@ -172,13 +170,34 @@ const renderTodoLists = function() {
     return listItemContainer;
   };
 
+  //Adds new item to the page
+  const addNewItemToPage = () => {
+    const add = document.createElement('div');
+    add.classList.add('add-new-element');
+    add.innerHTML = '<span>+</span>';
+
+    return add;
+  };
+
+  const handleCheckItem = (elm) => {
+    elm.addEventListener('click', (e) =>{
+      if(elm.childNodes[0].checked){
+          elm.style.textDecoration = 'line-through';
+      }else{
+          elm.style.textDecoration = 'none';
+      }
+  })
+  }
+
   const returnListContainer = () => {
-    const todoList = createListContainer(Collection.getCollection()[0].todoCollection[0].title);
+    const todoList = createListContainer(getCollection()[0].todoCollection[0].title);
     const addNew = addNewItemToPage();
 
-    console.log(Collection.getCollection()[0].todoCollection)
+    console.log(getCollection()[0].todoCollection)
 
-    addNew.addEventListener('click', () => handleNewElement(todoList, addTodoItemToList('Test'), addNew))
+    addNew.addEventListener('click', () => {
+      handleNewElement(todoList, addTodoItemToList(getCollection()[0].todoCollection[0].todoList[0]), addNew)
+    })
 
     todoList.appendChild(addNew)
     

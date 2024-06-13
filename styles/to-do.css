@@ -36,6 +36,9 @@
     width: 20px;
     height: 20px;
   }
+  input[type='date']{
+    padding: 5px 10px;
+  }
 }
 
 hr.solid {
@@ -84,7 +87,7 @@ hr.solid {
     padding: 5px 10px;
     font-weight: 800;
     background-color: #000;
-    color: #fff;
+    color: #ccc;
   }
 }
 

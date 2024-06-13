@@ -16,7 +16,9 @@ const toDoContainer = () => {
   //render header
   featuredContainer.appendChild(main.renderHeader());
   
-  featuredContainer.appendChild(main.returnListContainer('Main Testing List'));
+  //render first container inside the section
+  featuredContainer.appendChild(main.returnListContainer());
+
   const addNewList = main.addNewItemToPage();
   addNewList.addEventListener('click', () => main.handleNewElement(featuredContainer, main.returnListContainer('Template'), addNewList))
   featuredContainer.appendChild(addNewList);

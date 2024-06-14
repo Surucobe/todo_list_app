@@ -1,6 +1,5 @@
 const app = document.getElementById('app');
 
-//importation of modules
 import sidebar from "./src/components/sidebar.js";
 import toDoContainer from "./src/components/feature-list.js";
 

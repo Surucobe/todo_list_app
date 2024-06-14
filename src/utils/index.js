@@ -1,10 +1,11 @@
+//TODO: create a function that works the navigation
 import dayjs from "dayjs";
 
 //TODO: find a better shorter name
 const Collection = (function(){
   const CollectionList = [
     {
-      id: 'Main',
+      id: 'Week',
       description: 'Total accurate descripton',
       todoCollection: [
         {
@@ -204,7 +205,15 @@ const renderTodoLists = function() {
     return todoList;
   }
 
-  return {addNewItemToPage, returnListContainer, addTodoItemToList, handleNewElement, renderHeader}
+  const removeListContainer = (parent, child) => {
+    parent.removeChild(child);
+  }
+
+  const firstRender = (listName) => {}
+
+  const changeList = (currentElm, newElm) => {}
+
+  return {addNewItemToPage, returnListContainer, addTodoItemToList, handleNewElement, renderHeader, firstRender}
 }
 
 export default renderTodoLists;

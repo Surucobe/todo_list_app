@@ -1,9 +1,11 @@
+import { Collection } from '../utils';
+
 //reserved for the import on the styles
 import '../../styles/sidebar.css';
 
 import userPicture from '../assets/images/diabellstar.jpg';
 
-const sidebar = () => {
+const sidebar = (callback) => {
   const sidebar = document.createElement('div');
   sidebar.classList.add('sidebar-sections');
 
@@ -19,13 +21,25 @@ const sidebar = () => {
 
   const mainList = document.createElement('div');
   mainList.classList.add('main-list');
-  mainList.innerHTML = `<h2>My lists</h2>
-  <ul>
-    <li>Projects</li>
-    <li>Documentation</li>
-    <li>Articles</li>
-  </ul>
-  `;
+  const header = document.createElement('h2');
+  header.innerText = 'My lists';
+  const sidebarItemListContainer = document.createElement('ul');
+  Collection.getTitles().forEach(title => {
+    const newTitle = document.createElement('li');
+    newTitle.innerText = title
+
+    sidebarItemListContainer.appendChild(newTitle);
+  });
+  
+  console.log(Collection.getTitles());
+
+  mainList.appendChild(header);
+  mainList.appendChild(sidebarItemListContainer);
+
+  mainList.addEventListener('click', (e) => {
+    callback()
+  })
+
   sidebar.appendChild(mainList);
 
   return sidebar;

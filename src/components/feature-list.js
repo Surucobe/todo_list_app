@@ -1,4 +1,4 @@
-import renderTodoLists from '../utils';
+import {renderTodoLists} from '../utils';
 
 import todoWeek from '../atoms/todo_week';
 

@@ -2,7 +2,7 @@
 import dayjs from "dayjs";
 
 //TODO: find a better shorter name
-const Collection = (function(){
+export const Collection = (function(){
   const CollectionList = [
     {
       id: 'Week',
@@ -20,20 +20,60 @@ const Collection = (function(){
           ]
         }
       ]
-    }
+    },
+    {
+      id: 'Month',
+      description: 'Total accurate descripton',
+      todoCollection: [
+        {
+          title: 'Testing new approach',
+          todoList: [
+            {
+              checked: false,
+              text: 'totally legit text that at least is not lorem ipsum',
+              dueDate: '0/0/0',
+              priority: 'important'
+            }
+          ]
+        }
+      ]
+    },
+    {
+      id: 'Year',
+      description: 'Total accurate descripton',
+      todoCollection: [
+        {
+          title: 'Testing new approach',
+          todoList: [
+            {
+              checked: false,
+              text: 'totally legit text that at least is not lorem ipsum',
+              dueDate: '0/0/0',
+              priority: 'important'
+            }
+          ]
+        }
+      ]
+    },
   ]
 
   const getCollection = () => CollectionList;
+
+  const getTitles = () => {
+    const test = CollectionList.map(item => item.id);
+
+    return test
+  }
 
   function newElmentForCollection(obj){
     CollectionList.push(obj);
     console.log(obj);
   }
 
-  return {getCollection, newElmentForCollection};
+  return {getCollection, newElmentForCollection, getTitles};
 })();
 
-const renderTodoLists = function() {
+export const renderTodoLists = function() {
   
   const { getCollection, newElmentForCollection } = Collection
 
@@ -211,9 +251,9 @@ const renderTodoLists = function() {
 
   const firstRender = (listName) => {}
 
-  const changeList = (currentElm, newElm) => {}
+  const changeList = (/*currentElm, newElm*/) => {
+    console.log('We here mate');
+  }
 
-  return {addNewItemToPage, returnListContainer, addTodoItemToList, handleNewElement, renderHeader, firstRender}
+  return {addNewItemToPage, returnListContainer, addTodoItemToList, handleNewElement, renderHeader, firstRender, changeList}
 }
-
-export default renderTodoLists;

@@ -1,4 +1,4 @@
-import renderTodoLists from "../utils";
+import {renderTodoLists} from "../utils";
 
 const main = renderTodoLists();
 

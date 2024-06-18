@@ -7,12 +7,7 @@ const todoWeek = () => {
   const Week = document.createElement('div');
   Week.classList.add('feature-list');
 
-  //render header
-  Week.appendChild(main.renderHeader());
-
-  //render first container inside the section
-  const weekListContainer = main.returnListContainer('Monday')
-  Week.appendChild(weekListContainer);
+  main.renderList(Week, 'week');
 
   const addNewList = main.addNewItemToPage();
   addNewList.addEventListener('click', () => main.handleNewElement(Week, main.returnListContainer('Template'), addNewList));

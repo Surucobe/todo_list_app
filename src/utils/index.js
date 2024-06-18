@@ -12,18 +12,18 @@ export const Collection = (function(){
           title: 'Monday',
           todoList: [
             {
-              checked: false,
-              text: 'totally legit text that at least is not lorem ipsum',
+              checked: true,
+              text: "i'm the first element inside monday",
               //YY/MM/DD
               dueDate: '2024-06-19',
               priority: 'important'
             },
             {
               checked: false,
-              text: 'totally legit text that at least is not lorem ipsum',
+              text: "i'm the second element inside monday",
               //YY/MM/DD
               dueDate: '2024-06-22',
-              priority: ''
+              priority: 'low'
             },
           ]
         },
@@ -32,17 +32,17 @@ export const Collection = (function(){
           todoList: [
             {
               checked: false,
-              text: 'totally legit text that at least is not lorem ipsum',
+              text: "i'm the first element inside thursday",
               //YY/MM/DD
-              dueDate: '2024-06-19',
+              dueDate: '2024-07-19',
               priority: 'important'
             },
             {
               checked: false,
-              text: 'totally legit text that at least is not lorem ipsum',
+              text: "i'm the second element inside thursday",
               //YY/MM/DD
-              dueDate: '2024-06-22',
-              priority: ''
+              dueDate: '2024-08-22',
+              priority: 'urgent'
             },
           ]
         },
@@ -70,7 +70,7 @@ export const Collection = (function(){
               checked: false,
               text: 'totally legit text that at least is not lorem ipsum',
               dueDate: '0/0/0',
-              priority: 'important'
+              priority: 'low'
             }
           ]
         },
@@ -117,9 +117,8 @@ export const renderTodoLists = function() {
 
   const returnUpper = (str) => str[0].toLocaleUpperCase() + str.slice(1);
 
-  //find new approach for this
-  const renderHeader = () => {
-    const {id, description} = getCollection()[0];
+  //modify so it search for the corresponding
+  const renderHeader = (id, description) => {
 
     const header = document.createElement('div');
     header.classList.add('header');
@@ -228,6 +227,9 @@ export const renderTodoLists = function() {
   //TODO: fix styles
   //This one goes inside the containers to add a new item to the list
   const addTodoItemToList = (obj) => {
+    //the following will work the new elements being inserted
+    if(!obj) console.log('Yup')
+
     const listItemContainer = document.createElement('div');
     
     const text = document.createElement('textarea');
@@ -236,6 +238,7 @@ export const renderTodoLists = function() {
     
     const listItemInput = document.createElement('input');
     listItemInput.type = 'checkbox';
+    listItemInput.checked = obj.checked;
 
     const dueDate = calendarElement(obj.dueDate);
 
@@ -270,27 +273,48 @@ export const renderTodoLists = function() {
   })
   }
 
-  const returnListContainer = () => {
-    const todoList = createListContainer(getCollection()[0].todoCollection[0].title);
-    console.log(getCollection()[0].todoCollection[0].title)
+  const returnListContainer = (elm) => {
+    const {title, todoList} = elm;
+
+    const todoListContainer = createListContainer(title);
     const addNew = addNewItemToPage();
 
-    addNew.addEventListener('click', () => {
-      handleNewElement(todoList, addTodoItemToList(getCollection()[0].todoCollection[0].todoList[0]), addNew)
+    todoList.forEach(elm => {
+      todoListContainer.appendChild(addTodoItemToList(elm));
     })
 
-    todoList.appendChild(addNew)
+    addNew.addEventListener('click', () => {
+      handleNewElement(todoListContainer, addTodoItemToList(getCollection()[0].todoCollection[0].todoList[0]), addNew);
+    })
+
+    todoListContainer.appendChild(addNew)
     
-    return todoList;
+    return todoListContainer;
   }
 
   const removeListContainer = (parent, child) => {
     parent.removeChild(child);
   }
 
-  const renderList = (container) => {
-    
-  }
+  const renderList = (container, ref) => {
+    let collectionToRender
+    Collection.getCollection().some((obj) => {
+      if(obj.id == ref){
+        collectionToRender = obj;
+      }
+    })
+
+    //search for the obj based on the name passed down from the container
+    // addNewItemToPage()
+    //example of how to handle the following
+    //addNewList.addEventListener('click', () => main.handleNewElement(Week, main.returnListContainer('Template'), addNewList));
+
+    container.appendChild(renderHeader(collectionToRender.id, collectionToRender.description));
+
+    collectionToRender.todoCollection.forEach(elm => {
+      container.appendChild(returnListContainer(elm));
+    });
+}
 
   const changeList = (/*currentElm, newElm*/) => {
     console.log('We here mate');

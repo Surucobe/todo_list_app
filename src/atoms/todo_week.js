@@ -9,12 +9,13 @@ const todoWeek = () => {
 
   //render header
   Week.appendChild(main.renderHeader());
-  
+
   //render first container inside the section
-  Week.appendChild(main.returnListContainer());
+  const weekListContainer = main.returnListContainer('Monday')
+  Week.appendChild(weekListContainer);
 
   const addNewList = main.addNewItemToPage();
-  addNewList.addEventListener('click', () => main.handleNewElement(Week, main.returnListContainer('Template'), addNewList))
+  addNewList.addEventListener('click', () => main.handleNewElement(Week, main.returnListContainer('Template'), addNewList));
   Week.appendChild(addNewList);
 
   return Week;

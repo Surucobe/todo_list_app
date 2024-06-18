@@ -31,7 +31,7 @@ const sidebar = (callback) => {
     sidebarItemListContainer.appendChild(newTitle);
   });
   
-  console.log(Collection.getTitles());
+  // console.log(Collection.getTitles());
 
   mainList.appendChild(header);
   mainList.appendChild(sidebarItemListContainer);

@@ -5,20 +5,47 @@ import dayjs from "dayjs";
 export const Collection = (function(){
   const CollectionList = [
     {
-      id: 'Week',
+      id: 'week',
       description: 'Total accurate descripton',
       todoCollection: [
         {
-          title: 'Testing new approach',
+          title: 'Monday',
           todoList: [
             {
               checked: false,
               text: 'totally legit text that at least is not lorem ipsum',
-              dueDate: '0/0/0',
+              //YY/MM/DD
+              dueDate: '2024-06-19',
               priority: 'important'
-            }
+            },
+            {
+              checked: false,
+              text: 'totally legit text that at least is not lorem ipsum',
+              //YY/MM/DD
+              dueDate: '2024-06-22',
+              priority: ''
+            },
           ]
-        }
+        },
+        {
+          title: 'Thursday',
+          todoList: [
+            {
+              checked: false,
+              text: 'totally legit text that at least is not lorem ipsum',
+              //YY/MM/DD
+              dueDate: '2024-06-19',
+              priority: 'important'
+            },
+            {
+              checked: false,
+              text: 'totally legit text that at least is not lorem ipsum',
+              //YY/MM/DD
+              dueDate: '2024-06-22',
+              priority: ''
+            },
+          ]
+        },
       ]
     },
     {
@@ -35,7 +62,18 @@ export const Collection = (function(){
               priority: 'important'
             }
           ]
-        }
+        },
+        {
+          title: 'Testing new approach',
+          todoList: [
+            {
+              checked: false,
+              text: 'totally legit text that at least is not lorem ipsum',
+              dueDate: '0/0/0',
+              priority: 'important'
+            }
+          ]
+        },
       ]
     },
     {
@@ -77,6 +115,8 @@ export const renderTodoLists = function() {
   
   const { getCollection, newElmentForCollection } = Collection
 
+  const returnUpper = (str) => str[0].toLocaleUpperCase() + str.slice(1);
+
   //find new approach for this
   const renderHeader = () => {
     const {id, description} = getCollection()[0];
@@ -85,7 +125,7 @@ export const renderTodoLists = function() {
     header.classList.add('header');
 
     const headerTitle = document.createElement('h2');
-    headerTitle.innerHTML = id;
+    headerTitle.innerHTML = returnUpper(id);
 
     const headerDescription = document.createElement('textarea');
     headerDescription.innerHTML = description;
@@ -117,9 +157,9 @@ export const renderTodoLists = function() {
     return container;
   };
 
-  const calendarElement = () => {
+  const calendarElement = (date) => {
     const dueDate = document.createElement('input');
-    dueDate.defaultValue = dayjs().format('YYYY-MM-DD');
+    dueDate.defaultValue = dayjs().format(date);
     dueDate.classList.add('due-date');
     dueDate.type = 'date';
 
@@ -197,7 +237,7 @@ export const renderTodoLists = function() {
     const listItemInput = document.createElement('input');
     listItemInput.type = 'checkbox';
 
-    const dueDate = calendarElement();
+    const dueDate = calendarElement(obj.dueDate);
 
     const priority = priorityElement(obj.priority);
 
@@ -232,9 +272,8 @@ export const renderTodoLists = function() {
 
   const returnListContainer = () => {
     const todoList = createListContainer(getCollection()[0].todoCollection[0].title);
+    console.log(getCollection()[0].todoCollection[0].title)
     const addNew = addNewItemToPage();
-
-    console.log(getCollection()[0].todoCollection)
 
     addNew.addEventListener('click', () => {
       handleNewElement(todoList, addTodoItemToList(getCollection()[0].todoCollection[0].todoList[0]), addNew)
@@ -249,11 +288,13 @@ export const renderTodoLists = function() {
     parent.removeChild(child);
   }
 
-  const firstRender = (listName) => {}
+  const renderList = (container) => {
+    
+  }
 
   const changeList = (/*currentElm, newElm*/) => {
     console.log('We here mate');
   }
 
-  return {addNewItemToPage, returnListContainer, addTodoItemToList, handleNewElement, renderHeader, firstRender, changeList}
+  return {addNewItemToPage, returnListContainer, addTodoItemToList, handleNewElement, renderHeader, renderList, changeList}
 }

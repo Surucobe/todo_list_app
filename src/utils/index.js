@@ -6,7 +6,7 @@ export const Collection = (function(){
   const CollectionList = [
     {
       id: 'week',
-      description: 'Total accurate descripton',
+      description: 'Total accurate description',
       todoCollection: [
         {
           title: 'Monday',
@@ -224,6 +224,14 @@ export const renderTodoLists = function() {
     container.insertBefore(elm, ref);
   };
 
+  const handleCheckItem = (elm, modify) => {
+    if(elm.childNodes[0].checked){
+        modify.style.textDecoration = 'line-through';
+    }else{
+        modify.style.textDecoration = 'none';
+    }
+  }
+
   //TODO: fix styles
   //This one goes inside the containers to add a new item to the list
   const addTodoItemToList = (obj) => {
@@ -249,7 +257,8 @@ export const renderTodoLists = function() {
     listItemContainer.appendChild(dueDate);
     listItemContainer.appendChild(priority);
 
-    handleCheckItem(listItemContainer);
+    listItemContainer.addEventListener('click', () => handleCheckItem(listItemContainer, text))
+    handleCheckItem(listItemContainer, text);
 
     return listItemContainer;
   };
@@ -263,25 +272,18 @@ export const renderTodoLists = function() {
     return add;
   };
 
-  const handleCheckItem = (elm) => {
-    elm.addEventListener('click', (e) =>{
-      if(elm.childNodes[0].checked){
-          elm.style.textDecoration = 'line-through';
-      }else{
-          elm.style.textDecoration = 'none';
-      }
-  })
-  }
-
   const returnListContainer = (elm) => {
     const {title, todoList} = elm;
+    console.log(todoList)
 
     const todoListContainer = createListContainer(title);
     const addNew = addNewItemToPage();
 
-    todoList.forEach(elm => {
-      todoListContainer.appendChild(addTodoItemToList(elm));
-    })
+    if(todoList != undefined){
+      todoList.forEach(elm => {
+        todoListContainer.appendChild(addTodoItemToList(elm));
+      })
+    }
 
     addNew.addEventListener('click', () => {
       handleNewElement(todoListContainer, addTodoItemToList(getCollection()[0].todoCollection[0].todoList[0]), addNew);
@@ -305,7 +307,6 @@ export const renderTodoLists = function() {
     })
 
     //search for the obj based on the name passed down from the container
-    // addNewItemToPage()
     //example of how to handle the following
     //addNewList.addEventListener('click', () => main.handleNewElement(Week, main.returnListContainer('Template'), addNewList));
 
@@ -314,6 +315,10 @@ export const renderTodoLists = function() {
     collectionToRender.todoCollection.forEach(elm => {
       container.appendChild(returnListContainer(elm));
     });
+
+    const newSection = addNewItemToPage();
+    newSection.addEventListener('click', () => handleNewElement(container, returnListContainer({title: 'template'}) ,newSection))
+    container.appendChild(newSection);
 }
 
   const changeList = (/*currentElm, newElm*/) => {

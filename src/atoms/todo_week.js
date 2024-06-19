@@ -9,10 +9,6 @@ const todoWeek = () => {
 
   main.renderList(Week, 'week');
 
-  const addNewList = main.addNewItemToPage();
-  addNewList.addEventListener('click', () => main.handleNewElement(Week, main.returnListContainer('Template'), addNewList));
-  Week.appendChild(addNewList);
-
   return Week;
 }
 

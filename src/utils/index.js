@@ -49,7 +49,7 @@ export const Collection = (function(){
       ]
     },
     {
-      id: 'Month',
+      id: 'month',
       description: 'Total accurate descripton',
       todoCollection: [
         {
@@ -58,7 +58,7 @@ export const Collection = (function(){
             {
               checked: false,
               text: 'totally legit text that at least is not lorem ipsum',
-              dueDate: '0/0/0',
+              dueDate: '0-0-0',
               priority: 'important'
             }
           ]
@@ -69,7 +69,7 @@ export const Collection = (function(){
             {
               checked: false,
               text: 'totally legit text that at least is not lorem ipsum',
-              dueDate: '0/0/0',
+              dueDate: '0-0-0',
               priority: 'low'
             }
           ]
@@ -77,7 +77,7 @@ export const Collection = (function(){
       ]
     },
     {
-      id: 'Year',
+      id: 'year',
       description: 'Total accurate descripton',
       todoCollection: [
         {
@@ -86,7 +86,7 @@ export const Collection = (function(){
             {
               checked: false,
               text: 'totally legit text that at least is not lorem ipsum',
-              dueDate: '0/0/0',
+              dueDate: '0-0-0',
               priority: 'important'
             }
           ]
@@ -94,6 +94,9 @@ export const Collection = (function(){
       ]
     },
   ]
+
+  const pageCollection = []
+  const listsCollection = []
 
   const getCollection = () => CollectionList;
 
@@ -103,60 +106,39 @@ export const Collection = (function(){
     return test
   }
 
-  function newElmentForCollection(obj){
-    CollectionList.push(obj);
-    console.log(obj);
+  function createNewPage(){}
+  
+  function createNewList(){}
+
+  function createNewItem(query){
+    console.log(CollectionList[0].todoCollection.query)
   }
 
-  return {getCollection, newElmentForCollection, getTitles};
+  return {getCollection, getTitles, createNewItem};
 })();
 
 export const renderTodoLists = function() {
   
-  const { getCollection, newElmentForCollection } = Collection
+  const { getCollection, createNewItem } = Collection;
+
+  const handleNewElementInList = (query) => {
+    const currentPage = document.querySelector('.header h2').innerHTML.toLocaleLowerCase();
+    console.log(query)
+    createNewItem()
+    // console.log(getCollection().reverse()[0])
+  }
 
   const returnUpper = (str) => str[0].toLocaleUpperCase() + str.slice(1);
 
-  //modify so it search for the corresponding
-  const renderHeader = (id, description) => {
-
-    const header = document.createElement('div');
-    header.classList.add('header');
-
-    const headerTitle = document.createElement('h2');
-    headerTitle.innerHTML = returnUpper(id);
-
-    const headerDescription = document.createElement('textarea');
-    headerDescription.innerHTML = description;
-
-    header.appendChild(headerTitle);
-    header.appendChild(headerDescription);
-
-    return header;
+  const handleCheckItem = (elm, modify) => {
+    if(elm.childNodes[0].checked){
+        modify.style.textDecoration = 'line-through';
+    }else{
+        modify.style.textDecoration = 'none';
+    }
   }
 
-  const createListContainer = (todoTitle) => {
-    const container = document.createElement('div');
-    container.classList.add('feature-item');
-
-    const titleContainer = document.createElement('div');
-    
-    const title = document.createElement('h3');
-    title.innerHTML = todoTitle;
-    const divider = document.createElement('hr');
-    divider.classList.add('solid');
-    const list = document.createElement('ul');
-
-    titleContainer.appendChild(title);
-    titleContainer.appendChild(divider);
-    titleContainer.appendChild(list);
-    
-    container.appendChild(titleContainer);
-
-    return container;
-  };
-
-  const calendarElement = (date) => {
+  const calendarElement = (date = dayjs().format('YYYY-MM-DD')) => {
     const dueDate = document.createElement('input');
     dueDate.defaultValue = dayjs().format(date);
     dueDate.classList.add('due-date');
@@ -219,20 +201,49 @@ export const renderTodoLists = function() {
     return select;
   }
 
+  const renderHeader = (id, description) => {
+
+    const header = document.createElement('div');
+    header.classList.add('header');
+
+    const headerTitle = document.createElement('h2');
+    headerTitle.innerHTML = returnUpper(id);
+
+    const headerDescription = document.createElement('textarea');
+    headerDescription.innerHTML = description;
+
+    header.appendChild(headerTitle);
+    header.appendChild(headerDescription);
+
+    return header;
+  }
+
+  const createListContainer = (todoTitle) => {
+    const container = document.createElement('div');
+    container.classList.add('feature-item');
+
+    const titleContainer = document.createElement('div');
+    
+    const title = document.createElement('h3');
+    title.innerHTML = todoTitle;
+    const divider = document.createElement('hr');
+    divider.classList.add('solid');
+    const list = document.createElement('ul');
+
+    titleContainer.appendChild(title);
+    titleContainer.appendChild(divider);
+    titleContainer.appendChild(list);
+    
+    container.appendChild(titleContainer);
+
+    return container;
+  };
+
   const handleNewElement = (container, elm, ref) => {
     // newElmentForCollection('testing');
     container.insertBefore(elm, ref);
   };
 
-  const handleCheckItem = (elm, modify) => {
-    if(elm.childNodes[0].checked){
-        modify.style.textDecoration = 'line-through';
-    }else{
-        modify.style.textDecoration = 'none';
-    }
-  }
-
-  //TODO: fix styles
   //This one goes inside the containers to add a new item to the list
   const addTodoItemToList = (obj) => {
     //the following will work the new elements being inserted
@@ -274,7 +285,6 @@ export const renderTodoLists = function() {
 
   const returnListContainer = (elm) => {
     const {title, todoList} = elm;
-    console.log(todoList)
 
     const todoListContainer = createListContainer(title);
     const addNew = addNewItemToPage();
@@ -285,9 +295,7 @@ export const renderTodoLists = function() {
       })
     }
 
-    addNew.addEventListener('click', () => {
-      handleNewElement(todoListContainer, addTodoItemToList(getCollection()[0].todoCollection[0].todoList[0]), addNew);
-    })
+    addNew.addEventListener('click', () => handleNewElementInList(title))
 
     todoListContainer.appendChild(addNew)
     

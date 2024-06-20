@@ -95,9 +95,6 @@ export const Collection = (function(){
     },
   ]
 
-  const pageCollection = []
-  const listsCollection = []
-
   const getCollection = () => CollectionList;
 
   const getTitles = () => {
@@ -108,10 +105,34 @@ export const Collection = (function(){
 
   function createNewPage(){}
   
-  function createNewList(){}
+  function createNewListItem(){
+    const template = {
+      checked: false,
+      text: "",
+      dueDate: dayjs().format('YYYY-MM-DD'),
+      priority: ''
+    }
+
+    return template
+  }
 
   function createNewItem(query){
-    console.log(CollectionList[0].todoCollection.query)
+    const currentPage = document.querySelector('.header h2').innerHTML.toLocaleLowerCase();
+    let elementToSend
+
+    CollectionList.some(elm => {
+      if(elm.id == currentPage){
+        elm.todoCollection.forEach(obj => {
+          if(obj.title == query){
+            obj.todoList.push(createNewListItem());
+            console.log(obj)
+            elementToSend = obj.todoList[obj.todoList.length-1]
+          }
+        })
+      }
+    })
+
+    return elementToSend
   }
 
   return {getCollection, getTitles, createNewItem};
@@ -122,10 +143,10 @@ export const renderTodoLists = function() {
   const { getCollection, createNewItem } = Collection;
 
   const handleNewElementInList = (query) => {
-    const currentPage = document.querySelector('.header h2').innerHTML.toLocaleLowerCase();
-    console.log(query)
-    createNewItem()
-    // console.log(getCollection().reverse()[0])
+    const elm = createNewItem(query);
+    const newTodoItem = addTodoItemToList(elm);
+
+    return newTodoItem;
   }
 
   const returnUpper = (str) => str[0].toLocaleUpperCase() + str.slice(1);
@@ -138,7 +159,7 @@ export const renderTodoLists = function() {
     }
   }
 
-  const calendarElement = (date = dayjs().format('YYYY-MM-DD')) => {
+  const calendarElement = (date) => {
     const dueDate = document.createElement('input');
     dueDate.defaultValue = dayjs().format(date);
     dueDate.classList.add('due-date');
@@ -240,15 +261,11 @@ export const renderTodoLists = function() {
   };
 
   const handleNewElement = (container, elm, ref) => {
-    // newElmentForCollection('testing');
     container.insertBefore(elm, ref);
   };
 
   //This one goes inside the containers to add a new item to the list
   const addTodoItemToList = (obj) => {
-    //the following will work the new elements being inserted
-    if(!obj) console.log('Yup')
-
     const listItemContainer = document.createElement('div');
     
     const text = document.createElement('textarea');
@@ -295,9 +312,9 @@ export const renderTodoLists = function() {
       })
     }
 
-    addNew.addEventListener('click', () => handleNewElementInList(title))
+    addNew.addEventListener('click', () => handleNewElement(todoListContainer, handleNewElementInList(title),addNew));
 
-    todoListContainer.appendChild(addNew)
+    todoListContainer.appendChild(addNew);
     
     return todoListContainer;
   }
@@ -306,9 +323,10 @@ export const renderTodoLists = function() {
     parent.removeChild(child);
   }
 
+  //functions takes the container in which it will render and the name of the object that will be use for it
   const renderList = (container, ref) => {
     let collectionToRender
-    Collection.getCollection().some((obj) => {
+    getCollection().some((obj) => {
       if(obj.id == ref){
         collectionToRender = obj;
       }
@@ -325,7 +343,7 @@ export const renderTodoLists = function() {
     });
 
     const newSection = addNewItemToPage();
-    newSection.addEventListener('click', () => handleNewElement(container, returnListContainer({title: 'template'}) ,newSection))
+    newSection.addEventListener('click', () => handleNewElement(container, returnListContainer(collectionToRender) ,newSection))
     container.appendChild(newSection);
 }
 

@@ -28,6 +28,11 @@ const sidebar = (callback) => {
     const newTitle = document.createElement('li');
     newTitle.innerText = title
 
+    newTitle.addEventListener('click', (e) => {
+    // callback(title, console.log('we got here'))
+    callback(title)
+  })
+
     sidebarItemListContainer.appendChild(newTitle);
   });
   
@@ -35,10 +40,6 @@ const sidebar = (callback) => {
 
   mainList.appendChild(header);
   mainList.appendChild(sidebarItemListContainer);
-
-  mainList.addEventListener('click', (e) => {
-    callback()
-  })
 
   sidebar.appendChild(mainList);
 

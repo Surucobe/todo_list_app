@@ -179,11 +179,7 @@ export const renderTodoLists = function() {
   }
 
   const handleNewSection = () => {
-    //has to return the container and push a new element inside the collection
     const section = returnListContainer(createNewSection());
-
-    console.log(section)
-
     return section;
   }
 
@@ -375,8 +371,13 @@ export const renderTodoLists = function() {
     container.appendChild(newSection);
 }
 
-  const changeList = (/*currentElm, newElm*/) => {
-    console.log('We here mate');
+  const changeList = (parent, child) => {
+    //this should probably call yet another callback
+    //the next callback should be the one in charge of rendering
+    // removeListContainer()
+    // renderList()
+    parent.appendChild(child)
+    console.log(`this is happening`)
   }
 
   return {renderList, changeList}

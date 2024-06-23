@@ -12,9 +12,6 @@ const toDoContainer = (query) => {
   const toDo = document.createElement('div');
   toDo.classList.add('to-do_list_container');
 
-  // changeList(todo, )
-  // toDo.appendChild(todoWeek());
-
   switch (query) {
     case 'week':
       console.log('week')
@@ -29,8 +26,6 @@ const toDoContainer = (query) => {
         toDo.appendChild(todoYear(query));
         break;
   }
-
-  console.log(toDo)
   
   return toDo;
 }

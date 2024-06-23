@@ -167,7 +167,7 @@ export const Collection = (function(){
   return {getCollection, getTitles, createNewItem, createNewSection};
 })();
 
-export const renderTodoLists = function() {
+export const renderTodoLists = function(mainParentContainer) {
   
   const { getCollection, createNewItem, createNewSection } = Collection;
 
@@ -351,7 +351,7 @@ export const renderTodoLists = function() {
     return todoListContainer;
   }
 
-  const removeListContainer = (parent, child) => parent.removeChild(child);
+  const removeElement = (parent, child) => parent.removeChild(child);
 
   //functions takes the container in which it will render and the name of the object that will be use for it
   const renderList = (container, ref) => {
@@ -371,13 +371,14 @@ export const renderTodoLists = function() {
     container.appendChild(newSection);
 }
 
-  const changeList = (parent, child) => {
-    //this should probably call yet another callback
-    //the next callback should be the one in charge of rendering
-    // removeListContainer()
-    // renderList()
+  const changeList = (child) => {
+    const parent = document.getElementById('app')
+    if(parent.childNodes.length > 1){
+      removeElement(parent, parent.childNodes[1])
+    }
+    
     parent.appendChild(child)
-    console.log(`this is happening`)
+    console.log(parent.childNodes[1])
   }
 
   return {renderList, changeList}

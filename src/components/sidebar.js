@@ -1,4 +1,5 @@
 import { Collection } from '../utils';
+import toDoContainer from './todo-container';
 
 //reserved for the import on the styles
 import '../../styles/sidebar.css';
@@ -30,7 +31,7 @@ const sidebar = (callback) => {
 
     newTitle.addEventListener('click', (e) => {
     // callback(title, console.log('we got here'))
-    callback(title)
+    callback(toDoContainer(title))
   })
 
     sidebarItemListContainer.appendChild(newTitle);

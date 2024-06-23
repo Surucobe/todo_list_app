@@ -10,6 +10,6 @@ import sidebar from "./src/components/sidebar.js"
 import './styles/global.css';
 
 //TODO: add the changelist method in order to start rendering the new component every time the user navigates
-app.appendChild(sidebar(toDoContainer));
+app.appendChild(sidebar(main.changeList));
 //todoContainer needs to receive a parameter to decided what is it going to render
-main.changeList(app, toDoContainer('week'));
+main.changeList(toDoContainer('week'));

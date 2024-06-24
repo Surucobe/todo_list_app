@@ -1,8 +1,8 @@
 import {renderTodoLists} from '../utils';
 
-import todoWeek from '../atoms/todo_week';
-import todoMonth from '../atoms/todo_month';
-import todoYear from '../atoms/todo_year';
+import todoWeek from '../atoms/todoSection/todo_week';
+import todoMonth from '../atoms/todoSection/todo_month';
+import todoYear from '../atoms/todoSection/todo_year';
 
 import '../../styles/to-do.css';
 

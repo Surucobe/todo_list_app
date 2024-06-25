@@ -24,8 +24,19 @@
   display: flex;
   flex-direction: column;
   gap: 10px;
+  ul {
+    padding: 10px 0;
+  }
   li {
+    margin: 5px 0;
+    padding: 5px;
+    font-weight: 600;
     list-style: none;
     cursor: pointer;
+    border-radius: 8px;
+  }
+  li:hover {
+    background-color: white;
+    color: black;
   }
 }

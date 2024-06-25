@@ -381,5 +381,5 @@ export const renderTodoLists = function(mainParentContainer) {
     console.log(parent.childNodes[1])
   }
 
-  return {renderList, changeList}
+  return {renderList, changeList, addNewItemToPage}
 }

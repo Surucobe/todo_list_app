@@ -2,6 +2,7 @@ import { Collection, renderTodoLists } from '../utils';
 
 import userProfile from '../atoms/sidebar/user';
 import list from '../atoms/sidebar/list';
+import listItem from '../atoms/sidebar/list_item';
 
 //reserved for the import on the styles
 import '../../styles/sidebar.css';
@@ -25,9 +26,16 @@ const sidebar = (callback) => {
 
   const sidebarItemListContainer = list(Collection.getTitles(), callback);
 
+  const addSectionTitle = main.addNewItemToPage();
+
+  addSectionTitle.addEventListener('click', () => {
+    const newElm = main.newSideBarElement();
+    sidebarItemListContainer.appendChild(listItem(newElm.id, main.changeList));
+  })
+
   mainList.appendChild(header);
   mainList.appendChild(sidebarItemListContainer);
-  mainList.appendChild(main.addNewItemToPage())
+  mainList.appendChild(addSectionTitle);
 
   sidebar.appendChild(mainList);
 

@@ -64,7 +64,7 @@ export const Collection = (function(){
             {
               checked: false,
               text: 'totally legit text that at least is not lorem ipsum',
-              dueDate: '0-0-0',
+              dueDate: '',
               priority: 'important'
             }
           ]
@@ -92,7 +92,7 @@ export const Collection = (function(){
             {
               checked: false,
               text: 'totally legit text that at least is not lorem ipsum',
-              dueDate: '0-0-0',
+              dueDate: '',
               priority: 'important'
             }
           ]
@@ -112,7 +112,15 @@ export const Collection = (function(){
   const getCurrentPage = () => document.querySelector('.header h2').innerHTML.toLocaleLowerCase();
 
   function createNewPage(){
-
+    CollectionList.push(
+      {
+        id: 'testing',
+        description: 'New element added',
+        todoCollection: []
+      }
+    )
+    
+    return CollectionList[CollectionList.length-1];
   }
   
   function createNewListItem(){
@@ -164,7 +172,7 @@ export const Collection = (function(){
     return elementToSend
   }
 
-  return {getCollection, getTitles, createNewItem, createNewSection};
+  return {getCollection, getTitles, createNewItem, createNewSection, createNewPage};
 })();
 
 export const renderTodoLists = function(mainParentContainer) {
@@ -294,6 +302,12 @@ export const renderTodoLists = function(mainParentContainer) {
     return container;
   };
 
+  const newSideBarElement = () => {
+    const newCollectionElement = Collection.createNewPage();
+
+    return newCollectionElement;
+  }
+
   const handleNewElement = (container, elm, ref) => container.insertBefore(elm, ref);
 
   //This one goes inside the containers to add a new item to the list
@@ -378,8 +392,7 @@ export const renderTodoLists = function(mainParentContainer) {
     }
     
     parent.appendChild(child)
-    console.log(parent.childNodes[1])
   }
 
-  return {renderList, changeList, addNewItemToPage, handleNewElement}
+  return {renderList, changeList, addNewItemToPage, handleNewElement, newSideBarElement}
 }

@@ -305,6 +305,8 @@ export const renderTodoLists = function(mainParentContainer) {
   const newSideBarElement = () => {
     const newCollectionElement = Collection.createNewPage();
 
+    console.log(newCollectionElement)
+
     return newCollectionElement;
   }
 

@@ -1,33 +1,21 @@
 import {renderTodoLists} from '../utils';
 
-import todoWeek from '../atoms/todoSection/todo_week';
-import todoMonth from '../atoms/todoSection/todo_month';
-import todoYear from '../atoms/todoSection/todo_year';
-
 import '../../styles/to-do.css';
 
 const main = renderTodoLists()
 
 const toDoContainer = (query) => {
-  const toDo = document.createElement('div');
-  toDo.classList.add('to-do_list_container');
+  const mainToDoContainer = document.createElement('div');
+  mainToDoContainer.classList.add('to-do_list_container');
 
-  switch (query) {
-    case 'week':
-      console.log('week')
-      toDo.appendChild(todoWeek(query));
-      break;
-    case 'month':
-      console.log('month')
-        toDo.appendChild(todoMonth(query));
-        break;
-    case 'year':
-      console.log('year')
-        toDo.appendChild(todoYear(query));
-        break;
-  }
+  const todoSection = document.createElement('div');
+  todoSection.classList.add('feature-list');
+
+  main.renderList(todoSection, query);
+
+  mainToDoContainer.appendChild(todoSection);
   
-  return toDo;
+  return mainToDoContainer;
 }
 
 export default toDoContainer;

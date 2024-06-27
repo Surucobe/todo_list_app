@@ -75,7 +75,7 @@ export const Collection = (function(){
             {
               checked: false,
               text: 'totally legit text that at least is not lorem ipsum',
-              dueDate: '0-0-0',
+              dueDate: '',
               priority: 'low'
             }
           ]
@@ -191,6 +191,10 @@ export const renderTodoLists = function(mainParentContainer) {
     return section;
   }
 
+  const handleDelete = () => {
+    alert('works');
+  }
+
   const returnUpper = (str) => str[0].toLocaleUpperCase() + str.slice(1);
 
   const handleCheckItem = (elm, modify) => {
@@ -203,9 +207,16 @@ export const renderTodoLists = function(mainParentContainer) {
 
   const calendarElement = (date) => {
     const dueDate = document.createElement('input');
-    dueDate.defaultValue = dayjs().format(date);
     dueDate.classList.add('due-date');
     dueDate.type = 'date';
+
+    if(date == ''){
+      console.log('this one is empty')
+      dueDate.defaultValue = dayjs().format('YYYY-MM-DD');
+    }else{
+      console.log('this one is not')
+      dueDate.defaultValue = dayjs().format(date);
+    }
 
     return dueDate;
   }
@@ -296,7 +307,7 @@ export const renderTodoLists = function(mainParentContainer) {
     const deleteButton = document.createElement('span');
     deleteButton.classList.add('delete')
     deleteButton.innerHTML = 'X';
-    deleteButton.addEventListener('click', () => alert('this is gonna delete'))
+    deleteButton.addEventListener('click', () => handleDelete())
 
     titleContainer.appendChild(title);
     titleContainer.appendChild(divider);

@@ -194,7 +194,7 @@ export const renderTodoLists = function(mainParentContainer) {
   const returnUpper = (str) => str[0].toLocaleUpperCase() + str.slice(1);
 
   const handleCheckItem = (elm, modify) => {
-    if(elm.childNodes[0].checked){
+    if(elm.checked){
         modify.style.textDecoration = 'line-through';
     }else{
         modify.style.textDecoration = 'none';
@@ -293,9 +293,15 @@ export const renderTodoLists = function(mainParentContainer) {
     divider.classList.add('solid');
     const list = document.createElement('ul');
 
+    const deleteButton = document.createElement('span');
+    deleteButton.classList.add('delete')
+    deleteButton.innerHTML = 'X';
+    deleteButton.addEventListener('click', () => alert('this is gonna delete'))
+
     titleContainer.appendChild(title);
     titleContainer.appendChild(divider);
     titleContainer.appendChild(list);
+    titleContainer.appendChild(deleteButton);
     
     container.appendChild(titleContainer);
 
@@ -333,8 +339,15 @@ export const renderTodoLists = function(mainParentContainer) {
     listItemContainer.appendChild(dueDate);
     listItemContainer.appendChild(priority);
 
-    listItemContainer.addEventListener('click', () => handleCheckItem(listItemContainer, text))
-    handleCheckItem(listItemContainer, text);
+    listItemInput.addEventListener('click', () => handleCheckItem(listItemInput, text))
+    handleCheckItem(listItemInput, text);
+
+    text.addEventListener('input', (e) => {
+      if(listItemInput.checked){
+        listItemInput.checked = false;
+        handleCheckItem(listItemInput, text);
+      }
+    });
 
     return listItemContainer;
   };

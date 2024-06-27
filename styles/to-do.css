@@ -50,6 +50,7 @@ hr.solid {
   display: flex;
   flex-direction: column;
   justify-content: space-evenly;
+  position: relative;
   row-gap: 10px;
   border-radius: 8px;
   background-color: #121629;
@@ -88,6 +89,13 @@ hr.solid {
     font-weight: 800;
     background-color: #000;
     color: #ccc;
+  }
+  .delete {
+    position: absolute;
+    top: 5px;
+    right: 18px;
+    font-weight: 600;
+    cursor: pointer;
   }
 }
 

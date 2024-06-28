@@ -90,13 +90,6 @@ hr.solid {
     background-color: #000;
     color: #ccc;
   }
-  .delete {
-    position: absolute;
-    top: 5px;
-    right: 18px;
-    font-weight: 600;
-    cursor: pointer;
-  }
 }
 
 .add-new-element {
@@ -124,5 +117,16 @@ hr.solid {
 }
 input::-webkit-calendar-picker-indicator{
   filter: invert(1);
+  cursor: pointer;
+}
+
+.delete {
+  position: absolute;
+  top: 5px;
+  right: 18px;
+  font-weight: 600;
+  cursor: pointer;
+}
+.delete-item-element{
   cursor: pointer;
 }

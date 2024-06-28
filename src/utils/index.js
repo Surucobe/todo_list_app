@@ -5,12 +5,15 @@ export const Collection = (function(){
   const CollectionList = [
     {
       id: 'week',
+      title: 'Week',
       description: 'Total accurate description',
       todoCollection: [
         {
+          id: 'monday',
           title: 'Monday',
           todoList: [
             {
+              id: 'monday_1',
               checked: true,
               text: "i'm the first element inside monday",
               //YY/MM/DD
@@ -18,6 +21,7 @@ export const Collection = (function(){
               priority: 'important'
             },
             {
+              id: 'monday_2',
               checked: false,
               text: "i'm the second element inside monday",
               //YY/MM/DD
@@ -27,9 +31,11 @@ export const Collection = (function(){
           ]
         },
         {
+          id: 'thursday',
           title: 'Thursday',
           todoList: [
             {
+              id: 'thursday_1',
               checked: false,
               text: "i'm the first element inside thursday",
               //YY/MM/DD
@@ -37,6 +43,7 @@ export const Collection = (function(){
               priority: 'important'
             },
             {
+              id: 'thursday_2',
               checked: false,
               text: "i'm the second element inside thursday",
               //YY/MM/DD
@@ -44,6 +51,7 @@ export const Collection = (function(){
               priority: 'urgent'
             },
             {
+              id: 'thursday_3',
               checked: false,
               text: "i'm the second element inside thursday",
               //YY/MM/DD
@@ -56,12 +64,15 @@ export const Collection = (function(){
     },
     {
       id: 'month',
+      title: 'Month',
       description: 'Total accurate descripton',
       todoCollection: [
         {
-          title: 'Testing new approach',
+          id: 'may',
+          title: 'May',
           todoList: [
             {
+              id: 'may_1',
               checked: false,
               text: 'totally legit text that at least is not lorem ipsum',
               dueDate: '',
@@ -70,9 +81,11 @@ export const Collection = (function(){
           ]
         },
         {
-          title: 'Testing new approach',
+          id: 'july',
+          title: 'July',
           todoList: [
             {
+              id: 'may_2',
               checked: false,
               text: 'totally legit text that at least is not lorem ipsum',
               dueDate: '',
@@ -84,12 +97,14 @@ export const Collection = (function(){
     },
     {
       id: 'year',
+      title: 'Year',
       description: 'Total accurate descripton',
       todoCollection: [
         {
-          title: 'Testing new approach',
+          title: '2024',
           todoList: [
             {
+              id: '2024_1',
               checked: false,
               text: 'totally legit text that at least is not lorem ipsum',
               dueDate: '',
@@ -100,6 +115,8 @@ export const Collection = (function(){
       ]
     },
   ]
+
+  const createItemId = () => {}
 
   const getCollection = () => CollectionList;
 
@@ -157,27 +174,49 @@ export const Collection = (function(){
     const currentPage = getCurrentPage();
     let elementToSend
 
-    CollectionList.some(elm => {
+    CollectionList.forEach(elm => {
       if(elm.id == currentPage){
         elm.todoCollection.forEach(obj => {
           if(obj.title == query){
             obj.todoList.push(createNewListItem());
-            console.log(obj)
             elementToSend = obj.todoList[obj.todoList.length-1]
           }
         })
+        return true
       }
     })
 
     return elementToSend
   }
 
-  return {getCollection, getTitles, createNewItem, createNewSection, createNewPage};
+  function deleteListItem(query, containerName) {
+    const currentPage = getCurrentPage();
+    console.log(query)
+    console.log(`currently deleting: ${query} in ${containerName}`)
+
+    CollectionList.some(elm => {
+      if(elm.id == currentPage){
+        elm.todoCollection.forEach(obj => {
+          if(obj.id == containerName){
+            obj.todoList.forEach((item, index) => {
+              if(item.id == query){
+                // console.log(`Item${item} is in position: ${index}`)
+                console.log(obj.todoList[index])
+                obj.todoList.splice(index, 1)
+              }
+            })
+          }
+        })
+      }
+    })
+  }
+
+  return {getCollection, getTitles, createNewItem, createNewSection, createNewPage, deleteListItem};
 })();
 
 export const renderTodoLists = function(mainParentContainer) {
   
-  const { getCollection, createNewItem, createNewSection } = Collection;
+  const { getCollection, createNewItem, createNewSection, deleteListItem } = Collection;
 
   const handleNewElementInList = (query) => {
     const elm = createNewItem(query);
@@ -191,9 +230,20 @@ export const renderTodoLists = function(mainParentContainer) {
     return section;
   }
 
-  const handleDelete = () => {
+  const handleSectionDelete = () => {}
+
+  const handleListDelete = () => {
     alert('works');
   }
+
+  const handleItemDelete = (query, containerName) =>{
+    //calls function to delete element from the collection
+    deleteListItem(query, containerName)
+    //once the element is delted from the collection is then remove from the DOM
+    //removeElement(/* parent, child */)
+  }
+
+  const handleNewElement = (container, elm, ref) => container.insertBefore(elm, ref);
 
   const returnUpper = (str) => str[0].toLocaleUpperCase() + str.slice(1);
 
@@ -214,7 +264,6 @@ export const renderTodoLists = function(mainParentContainer) {
       console.log('this one is empty')
       dueDate.defaultValue = dayjs().format('YYYY-MM-DD');
     }else{
-      console.log('this one is not')
       dueDate.defaultValue = dayjs().format(date);
     }
 
@@ -292,9 +341,10 @@ export const renderTodoLists = function(mainParentContainer) {
     return header;
   }
 
-  const createListContainer = (todoTitle) => {
+  const createListContainer = (todoTitle, id) => {
     const container = document.createElement('div');
     container.classList.add('feature-item');
+    container.setAttribute(`data-${id}`, todoTitle)
 
     const titleContainer = document.createElement('div');
     
@@ -307,7 +357,7 @@ export const renderTodoLists = function(mainParentContainer) {
     const deleteButton = document.createElement('span');
     deleteButton.classList.add('delete')
     deleteButton.innerHTML = 'X';
-    deleteButton.addEventListener('click', () => handleDelete())
+    deleteButton.addEventListener('click', () => handleListDelete())
 
     titleContainer.appendChild(title);
     titleContainer.appendChild(divider);
@@ -327,11 +377,11 @@ export const renderTodoLists = function(mainParentContainer) {
     return newCollectionElement;
   }
 
-  const handleNewElement = (container, elm, ref) => container.insertBefore(elm, ref);
-
   //This one goes inside the containers to add a new item to the list
-  const addTodoItemToList = (obj) => {
+  const addTodoItemToList = (obj, title) => {
     const listItemContainer = document.createElement('div');
+
+    listItemContainer.setAttribute(`data-${title}`, obj.id);
     
     const text = document.createElement('textarea');
     text.innerHTML = obj.text;
@@ -341,6 +391,12 @@ export const renderTodoLists = function(mainParentContainer) {
     listItemInput.type = 'checkbox';
     listItemInput.checked = obj.checked;
 
+    const deleteItem = document.createElement('span');
+    deleteItem.classList.add('delete-item-element');
+    deleteItem.innerHTML = 'X';
+
+    deleteItem.addEventListener('click', () => handleItemDelete(obj.id, title.toLowerCase()))
+
     const dueDate = calendarElement(obj.dueDate);
 
     const priority = priorityElement(obj.priority);
@@ -349,6 +405,7 @@ export const renderTodoLists = function(mainParentContainer) {
     listItemContainer.appendChild(text);
     listItemContainer.appendChild(dueDate);
     listItemContainer.appendChild(priority);
+    listItemContainer.appendChild(deleteItem);
 
     listItemInput.addEventListener('click', () => handleCheckItem(listItemInput, text))
     handleCheckItem(listItemInput, text);
@@ -372,15 +429,15 @@ export const renderTodoLists = function(mainParentContainer) {
     return add;
   };
 
-  const returnListContainer = (elm) => {
+  const returnListContainer = (elm, id) => {
     const {title, todoList} = elm;
 
-    const todoListContainer = createListContainer(returnUpper(title));
+    const todoListContainer = createListContainer(returnUpper(title), id);
     const addNew = addNewItemToPage();
 
     if(todoList != undefined){
       todoList.forEach(elm => {
-        todoListContainer.appendChild(addTodoItemToList(elm));
+        todoListContainer.appendChild(addTodoItemToList(elm, title));
       })
     }
 
@@ -404,7 +461,7 @@ export const renderTodoLists = function(mainParentContainer) {
 
     container.appendChild(renderHeader(collectionToRender.id, collectionToRender.description));
 
-    collectionToRender.todoCollection.forEach(elm => container.appendChild(returnListContainer(elm)));
+    collectionToRender.todoCollection.forEach(elm => container.appendChild(returnListContainer(elm, collectionToRender.id)));
 
     const newSection = addNewItemToPage();
     newSection.addEventListener('click', () => handleNewElement(container, handleNewSection() ,newSection));

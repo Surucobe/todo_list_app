@@ -189,10 +189,9 @@ export const Collection = (function(){
     return elementToSend
   }
 
+  //TODO: Find the way to fix this with recursivity
   function deleteListItem(query, containerName) {
     const currentPage = getCurrentPage();
-    console.log(query)
-    console.log(`currently deleting: ${query} in ${containerName}`)
 
     CollectionList.some(elm => {
       if(elm.id == currentPage){
@@ -200,9 +199,7 @@ export const Collection = (function(){
           if(obj.id == containerName){
             obj.todoList.forEach((item, index) => {
               if(item.id == query){
-                // console.log(`Item${item} is in position: ${index}`)
-                console.log(obj.todoList[index])
-                obj.todoList.splice(index, 1)
+                obj.todoList.splice(index, 1);
               }
             })
           }
@@ -211,12 +208,12 @@ export const Collection = (function(){
     })
   }
 
-  return {getCollection, getTitles, createNewItem, createNewSection, createNewPage, deleteListItem};
+  return {getCollection, getTitles, createNewItem, createNewSection, createNewPage, deleteListItem, getCurrentPage};
 })();
 
 export const renderTodoLists = function(mainParentContainer) {
   
-  const { getCollection, createNewItem, createNewSection, deleteListItem } = Collection;
+  const { getCollection, createNewItem, createNewSection, deleteListItem, getCurrentPage } = Collection;
 
   const handleNewElementInList = (query) => {
     const elm = createNewItem(query);
@@ -237,10 +234,13 @@ export const renderTodoLists = function(mainParentContainer) {
   }
 
   const handleItemDelete = (query, containerName) =>{
+    const parent = document.querySelector(`[data-${getCurrentPage().toLocaleLowerCase()}="${containerName}"]`);
+    const child = document.querySelector(`[data-${containerName}="${query}"]`);
     //calls function to delete element from the collection
     deleteListItem(query, containerName)
+
     //once the element is delted from the collection is then remove from the DOM
-    //removeElement(/* parent, child */)
+    removeElement(parent, child);
   }
 
   const handleNewElement = (container, elm, ref) => container.insertBefore(elm, ref);
@@ -344,7 +344,7 @@ export const renderTodoLists = function(mainParentContainer) {
   const createListContainer = (todoTitle, id) => {
     const container = document.createElement('div');
     container.classList.add('feature-item');
-    container.setAttribute(`data-${id}`, todoTitle)
+    container.setAttribute(`data-${id}`, todoTitle.toLocaleLowerCase())
 
     const titleContainer = document.createElement('div');
     

@@ -71,9 +71,11 @@ const todoElement = (function(){
     return select;
   }
 
+  const handleDataSet = (str) => str.split(' ').join('_');
+
   function addTodoItemToList(obj, title, handleCheck, handleDelete) {
     const listItemContainer = document.createElement('div');
-    listItemContainer.setAttribute(`data-${title}`, obj.id);
+    listItemContainer.setAttribute(`data-${handleDataSet(title)}`, obj.id);
     
     const text = document.createElement('textarea');
     text.innerHTML = obj.text;

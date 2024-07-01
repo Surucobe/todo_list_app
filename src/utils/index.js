@@ -1,11 +1,12 @@
-//TODO: create a function that works the navigation
 import Data from "./data/Collection";
-import todoElement from "./todo-element";
+import todoElement from "./todo-item/todo-element";
+import listContainer from "./list-container/list-container";
 
 export const renderTodoLists = function() {
   
-  const { getCollection, createNewItem, createNewSection, deleteListItem, getCurrentPage } = Data;
-  const { addTodoItemToList } = todoElement
+  const { getCollection, createNewItem, createNewSection, deleteListItem, getCurrentPage, createNewPage } = Data;
+  const { addTodoItemToList } = todoElement;
+  const {createListContainer} = listContainer;
 
   const handleNewElementInList = (query) => {
     const elm = createNewItem(query);
@@ -28,10 +29,9 @@ export const renderTodoLists = function() {
   const handleItemDelete = (query, containerName) =>{
     const parent = document.querySelector(`[data-${getCurrentPage().toLocaleLowerCase()}="${containerName}"]`);
     const child = document.querySelector(`[data-${containerName}="${query}"]`);
-    //calls function to delete element from the collection
+
     deleteListItem(query, containerName)
 
-    //once the element is delted from the collection is then remove from the DOM
     removeElement(parent, child);
   }
 
@@ -64,36 +64,8 @@ export const renderTodoLists = function() {
     return header;
   }
 
-  const createListContainer = (todoTitle, id) => {
-    const container = document.createElement('div');
-    container.classList.add('feature-item');
-    container.setAttribute(`data-${id}`, todoTitle.toLocaleLowerCase())
-
-    const titleContainer = document.createElement('div');
-    
-    const title = document.createElement('h3');
-    title.innerHTML = todoTitle;
-    const divider = document.createElement('hr');
-    divider.classList.add('solid');
-    const list = document.createElement('ul');
-
-    const deleteButton = document.createElement('span');
-    deleteButton.classList.add('delete')
-    deleteButton.innerHTML = 'X';
-    deleteButton.addEventListener('click', () => handleListDelete())
-
-    titleContainer.appendChild(title);
-    titleContainer.appendChild(divider);
-    titleContainer.appendChild(list);
-    titleContainer.appendChild(deleteButton);
-    
-    container.appendChild(titleContainer);
-
-    return container;
-  };
-
   const newSideBarElement = () => {
-    const newCollectionElement = Collection.createNewPage();
+    const newCollectionElement = createNewPage();
 
     console.log(newCollectionElement)
 
@@ -157,5 +129,5 @@ export const renderTodoLists = function() {
     parent.appendChild(child)
   }
 
-  return {renderList, changeList, addNewItemToPage, handleNewElement, newSideBarElement}
+  return {renderList, changeList, addNewItemToPage, newSideBarElement}
 }

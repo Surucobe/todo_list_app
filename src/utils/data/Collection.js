@@ -154,6 +154,7 @@ const Data = (function(){
     const currentPage = getCurrentPage();
 
     const section = {
+      id: 'default',
       title: 'write your title',
       todoList: []
     };
@@ -182,7 +183,11 @@ const Data = (function(){
       if(elm.id == currentPage){
         elm.todoCollection.forEach(obj => {
           if(obj.title == query){
-            obj.todoList.push(createNewListItem(createItemId(obj.id, obj.todoList[obj.todoList.length-1].id)));
+            if(obj.todoList.length != 0){
+              obj.todoList.push(createNewListItem(createItemId(obj.id, obj.todoList[obj.todoList.length-1].id)))
+            }else{
+              obj.todoList.push(createNewListItem(createItemId(obj.id, '1')))
+            }
             elementToSend = obj.todoList[obj.todoList.length-1]
           }
         })
@@ -193,7 +198,7 @@ const Data = (function(){
     return elementToSend
   }
 
-  //TODO: Find the way to fix this with recursivity
+  //IDEA: Recursivity may be use but this may be a good approach anyway, for now i will do nothing about it
   function deleteListItem(query, containerName) {
     const currentPage = getCurrentPage();
 
@@ -212,7 +217,7 @@ const Data = (function(){
     })
   }
 
-  return {getCollection, getTitles, createNewItem, createNewSection, createNewPage, deleteListItem, getCurrentPage};
+  return {getCollection, getTitles, createNewItem, createNewSection, createNewPage, deleteListItem, getCurrentPage, createNewPage};
 })()
 
 export default Data;

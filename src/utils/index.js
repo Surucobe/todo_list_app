@@ -1,15 +1,15 @@
 //TODO: create a function that works the navigation
-import dayjs from "dayjs";
-
 import Data from "./data/Collection";
+import todoElement from "./todo-element";
 
-export const renderTodoLists = function(mainParentContainer) {
+export const renderTodoLists = function() {
   
   const { getCollection, createNewItem, createNewSection, deleteListItem, getCurrentPage } = Data;
+  const { addTodoItemToList } = todoElement
 
   const handleNewElementInList = (query) => {
     const elm = createNewItem(query);
-    const newTodoItem = addTodoItemToList(elm, query);
+    const newTodoItem = addTodoItemToList(elm, query, handleCheckItem, handleItemDelete);
 
     return newTodoItem;
   }
@@ -45,75 +45,6 @@ export const renderTodoLists = function(mainParentContainer) {
     }else{
         modify.style.textDecoration = 'none';
     }
-  }
-
-  const calendarElement = (date) => {
-    const dueDate = document.createElement('input');
-    dueDate.classList.add('due-date');
-    dueDate.type = 'date';
-
-    if(date == ''){
-      console.log('this one is empty')
-      dueDate.defaultValue = dayjs().format('YYYY-MM-DD');
-    }else{
-      dueDate.defaultValue = dayjs().format(date);
-    }
-
-    return dueDate;
-  }
-
-  const priorityElement = (value) => {
-    const select = document.createElement('select');
-
-    const defaultOption = document.createElement('option');
-    defaultOption.innerHTML = '- Priority -';
-    defaultOption.disabled = true;
-    defaultOption.style.color = 'white';
-    select.appendChild(defaultOption);
-
-    const low = document.createElement('option');
-    low.value = 'green';
-    low.style.color = 'green';
-    low.innerHTML = 'Low';
-    select.appendChild(low);
-
-    const important = document.createElement('option');
-    important.value = 'orange';
-    important.style.color = 'orange';
-    important.innerHTML = 'Important';
-    select.appendChild(important);
-
-    const urgent = document.createElement('option');
-    urgent.value = 'red';
-    urgent.style.color = 'red';
-    urgent.innerHTML = 'Urgent';
-    select.appendChild(urgent);
-
-    select.addEventListener('change', (e) => {
-      const color = e.target.value;
-      e.target.style.color = color;
-    })
-
-    switch (value) {
-      case 'low':
-        low.defaultSelected = true;
-        select.style.color = 'green';
-        break;
-      case 'important':
-        important.defaultSelected = true;
-        select.style.color = 'orange';
-        break;
-      case 'urgent':
-        urgent.defaultSelected = true;
-        select.style.color = 'red';
-        break;
-      default:
-        defaultOption.defaultSelected = true;
-        select.style.color = '#ccc';
-        break;
-    }
-
-    return select;
   }
 
   const renderHeader = (id, description) => {
@@ -169,48 +100,6 @@ export const renderTodoLists = function(mainParentContainer) {
     return newCollectionElement;
   }
 
-  //This one goes inside the containers to add a new item to the list
-  const addTodoItemToList = (obj, title) => {
-    const listItemContainer = document.createElement('div');
-    listItemContainer.setAttribute(`data-${title}`, obj.id);
-    
-    const text = document.createElement('textarea');
-    text.innerHTML = obj.text;
-    text.maxLength = '50';
-    
-    const listItemInput = document.createElement('input');
-    listItemInput.type = 'checkbox';
-    listItemInput.checked = obj.checked;
-
-    const deleteItem = document.createElement('span');
-    deleteItem.classList.add('delete-item-element');
-    deleteItem.innerHTML = 'X';
-
-    deleteItem.addEventListener('click', () => handleItemDelete(obj.id, title.toLowerCase()))
-
-    const dueDate = calendarElement(obj.dueDate);
-
-    const priority = priorityElement(obj.priority);
-
-    listItemContainer.appendChild(listItemInput);
-    listItemContainer.appendChild(text);
-    listItemContainer.appendChild(dueDate);
-    listItemContainer.appendChild(priority);
-    listItemContainer.appendChild(deleteItem);
-
-    listItemInput.addEventListener('click', () => handleCheckItem(listItemInput, text))
-    handleCheckItem(listItemInput, text);
-
-    text.addEventListener('input', (e) => {
-      if(listItemInput.checked){
-        listItemInput.checked = false;
-        handleCheckItem(listItemInput, text);
-      }
-    });
-
-    return listItemContainer;
-  };
-
   //Adds new item to the page
   const addNewItemToPage = () => {
     const add = document.createElement('div');
@@ -228,7 +117,7 @@ export const renderTodoLists = function(mainParentContainer) {
 
     if(todoList != undefined){
       todoList.forEach(elm => {
-        todoListContainer.appendChild(addTodoItemToList(elm, title));
+        todoListContainer.appendChild(addTodoItemToList(elm, title, handleCheckItem, handleItemDelete));
       })
     }
 

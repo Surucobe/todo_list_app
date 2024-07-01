@@ -116,8 +116,6 @@ export const Collection = (function(){
     },
   ]
 
-  const createItemId = () => {}
-
   const getCollection = () => CollectionList;
 
   const getTitles = () => {
@@ -140,8 +138,9 @@ export const Collection = (function(){
     return CollectionList[CollectionList.length-1];
   }
   
-  function createNewListItem(){
+  function createNewListItem(id){
     const template = {
+      id: id,
       checked: false,
       text: "",
       dueDate: dayjs().format('YYYY-MM-DD'),
@@ -170,6 +169,12 @@ export const Collection = (function(){
     return returningItem;
   }
 
+  function createItemId(id, num){
+    const number = Number(num.match(/\d+/)[0])+1;
+
+    return `${id}_${number}`
+  }
+
   function createNewItem(query){
     const currentPage = getCurrentPage();
     let elementToSend
@@ -178,7 +183,7 @@ export const Collection = (function(){
       if(elm.id == currentPage){
         elm.todoCollection.forEach(obj => {
           if(obj.title == query){
-            obj.todoList.push(createNewListItem());
+            obj.todoList.push(createNewListItem(createItemId(obj.id, obj.todoList[obj.todoList.length-1].id)));
             elementToSend = obj.todoList[obj.todoList.length-1]
           }
         })
@@ -215,9 +220,10 @@ export const renderTodoLists = function(mainParentContainer) {
   
   const { getCollection, createNewItem, createNewSection, deleteListItem, getCurrentPage } = Collection;
 
-  const handleNewElementInList = (query) => {
+  const handleNewElementInList = (query, title) => {
+    console.log('hi')
     const elm = createNewItem(query);
-    const newTodoItem = addTodoItemToList(elm);
+    const newTodoItem = addTodoItemToList(elm, title);
 
     return newTodoItem;
   }
@@ -380,7 +386,6 @@ export const renderTodoLists = function(mainParentContainer) {
   //This one goes inside the containers to add a new item to the list
   const addTodoItemToList = (obj, title) => {
     const listItemContainer = document.createElement('div');
-
     listItemContainer.setAttribute(`data-${title}`, obj.id);
     
     const text = document.createElement('textarea');

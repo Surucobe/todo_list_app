@@ -220,10 +220,11 @@ export const renderTodoLists = function(mainParentContainer) {
   
   const { getCollection, createNewItem, createNewSection, deleteListItem, getCurrentPage } = Collection;
 
-  const handleNewElementInList = (query, title) => {
-    console.log('hi')
+  const handleNewElementInList = (query) => {
+    console.log(query)
+    debugger
     const elm = createNewItem(query);
-    const newTodoItem = addTodoItemToList(elm, title);
+    const newTodoItem = addTodoItemToList(elm, query);
 
     return newTodoItem;
   }

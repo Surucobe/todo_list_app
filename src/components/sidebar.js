@@ -1,4 +1,5 @@
-import { Collection, renderTodoLists } from '../utils';
+import { renderTodoLists } from '../utils';
+import Data from '../utils/data/Collection';
 
 import userProfile from '../atoms/sidebar/user';
 import list from '../atoms/sidebar/list';
@@ -24,7 +25,7 @@ const sidebar = (callback) => {
   const header = document.createElement('h2');
   header.innerText = 'My lists';
 
-  const sidebarItemListContainer = list(Collection.getTitles(), callback);
+  const sidebarItemListContainer = list(Data.getTitles(), callback);
 
   const addSectionTitle = main.addNewItemToPage();
 
@@ -33,7 +34,7 @@ const sidebar = (callback) => {
 
     sidebarItemListContainer.appendChild(listItem(newElm.id, main.changeList));
 
-    console.log(Collection.getCollection())
+    console.log(Data.getCollection())
   })
 
   mainList.appendChild(header);

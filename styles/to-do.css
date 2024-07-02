@@ -70,6 +70,10 @@ hr.solid {
   :last-child{
     display: block;
   }
+  .container_header{
+    display: flex;
+    column-gap: 10px;
+  }
   textarea{
     cursor: initial;
     height: 30px;

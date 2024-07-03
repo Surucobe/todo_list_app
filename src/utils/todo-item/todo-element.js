@@ -76,8 +76,6 @@ const todoElement = (function(){
   function addTodoItemToList(obj, title, handleCheck, handleDelete) {
     const listItemContainer = document.createElement('div');
     listItemContainer.setAttribute(`data-${handleDataSet(title)}`, obj.id);
-    console.log(typeof title.toLowerCase())
-    console.log(listItemContainer.dataset[`${title.toLowerCase()}`])
     
     const text = document.createElement('textarea');
     text.innerHTML = obj.text;
@@ -112,7 +110,7 @@ const todoElement = (function(){
     text.addEventListener('input', (e) => {
       if(listItemInput.checked){
         listItemInput.checked = false;
-        handleCheck(obj.id);
+        handleCheck(obj.id, title.toLowerCase());
       }
     });
 

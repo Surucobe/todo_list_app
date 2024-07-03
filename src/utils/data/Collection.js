@@ -198,6 +198,32 @@ const Data = (function(){
     return elementToSend
   }
 
+  function findElement(id, array){
+    let hasArray = false;
+    let hasId = array.some(someObj => {
+      if(someObj.id == id){
+        console.log('We found it boss')
+        return true
+      }else{
+        return false
+      }
+    });
+
+    array.forEach(obj => {
+      if(hasId){
+        return
+      };
+      for(const property in obj){
+        if(!hasArray){
+          hasArray = Array.isArray(obj[property]);
+        }
+        if(!hasId && hasArray){
+          findElement(id, obj[property])
+        }
+      }
+    })
+  }
+
   //IDEA: Recursivity may be use but this may be a good approach anyway, for now i will do nothing about it
   function deleteListItem(query, containerName) {
     const currentPage = getCurrentPage();
@@ -217,7 +243,7 @@ const Data = (function(){
     })
   }
 
-  return {getCollection, getTitles, createNewItem, createNewSection, createNewPage, deleteListItem, getCurrentPage, createNewPage};
+  return {getCollection, getTitles, createNewItem, createNewSection, createNewPage, deleteListItem, getCurrentPage, createNewPage, findElement};
 })()
 
 export default Data;

@@ -8,13 +8,6 @@ export const renderTodoLists = function() {
   const { addTodoItemToList } = todoElement;
   const {createListContainer} = listContainer;
 
-  const handleNewElementInList = (query) => {
-    const elm = createNewItem(query);
-    const newTodoItem = addTodoItemToList(elm, query, handleCheckItem, handleItemDelete);
-
-    return newTodoItem;
-  }
-
   const handleNewSection = () => {
     const section = returnListContainer(createNewSection());
     return section;
@@ -39,12 +32,23 @@ export const renderTodoLists = function() {
 
   const returnUpper = (str) => str[0].toLocaleUpperCase() + str.slice(1);
 
-  const handleCheckItem = (elm, modify) => {
+  const handleCheckItem = (id, dataset) => {
+    const elm = document.querySelector(`[data-${dataset}='${id}'] input`);
+    console.log(elm)
+
     if(elm.checked){
-        modify.style.textDecoration = 'line-through';
+      document.querySelector(`[data-${dataset}='${id}'] textarea`).style.textDecoration = 'line-through';
     }else{
-        modify.style.textDecoration = 'none';
+      document.querySelector(`[data-${dataset}='${id}'] textarea`).style.textDecoration = 'none';
     }
+    
+  }
+
+  const handleNewElementInList = (query) => {
+    const elm = createNewItem(query);
+    const newTodoItem = addTodoItemToList(elm, query, handleCheckItem, handleItemDelete);
+
+    return newTodoItem;
   }
 
   const renderHeader = (id, description) => {

@@ -73,6 +73,7 @@ hr.solid {
   .container_header{
     display: flex;
     column-gap: 10px;
+    margin-bottom: 5px;
   }
   textarea{
     cursor: initial;
@@ -133,5 +134,11 @@ input::-webkit-calendar-picker-indicator{
   cursor: pointer;
 }
 .delete-item-element{
+  cursor: pointer;
+}
+svg {
+  height: 30px;
+  width: 30px;
+  fill: #fff;
   cursor: pointer;
 }

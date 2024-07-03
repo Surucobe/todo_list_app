@@ -76,10 +76,16 @@ const todoElement = (function(){
   function addTodoItemToList(obj, title, handleCheck, handleDelete) {
     const listItemContainer = document.createElement('div');
     listItemContainer.setAttribute(`data-${handleDataSet(title)}`, obj.id);
+    console.log(typeof title.toLowerCase())
+    console.log(listItemContainer.dataset[`${title.toLowerCase()}`])
     
     const text = document.createElement('textarea');
     text.innerHTML = obj.text;
     text.maxLength = '50';
+
+    if(obj.checked){
+      text.style.textDecoration = 'line-through';
+    }
     
     const listItemInput = document.createElement('input');
     listItemInput.type = 'checkbox';
@@ -89,7 +95,7 @@ const todoElement = (function(){
     deleteItem.classList.add('delete-item-element');
     deleteItem.innerHTML = 'X';
 
-    deleteItem.addEventListener('click', () => handleDelete(obj.id, title.toLowerCase()))
+    deleteItem.addEventListener('click', () => handleDelete(obj.id, `${title.toLowerCase()}`))
 
     const dueDate = calendarElement(obj.dueDate);
 
@@ -101,13 +107,12 @@ const todoElement = (function(){
     listItemContainer.appendChild(priority);
     listItemContainer.appendChild(deleteItem);
 
-    listItemInput.addEventListener('click', () => handleCheck(listItemInput, text))
-    handleCheck(listItemInput, text);
+    listItemInput.addEventListener('click', () => handleCheck(obj.id, title.toLowerCase()))
 
     text.addEventListener('input', (e) => {
       if(listItemInput.checked){
         listItemInput.checked = false;
-        handleCheck(listItemInput, text);
+        handleCheck(obj.id);
       }
     });
 

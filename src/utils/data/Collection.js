@@ -43,7 +43,7 @@ const Data = (function(){
             },
             {
               id: 'thursday_2',
-              checked: false,
+              checked: true,
               text: "i'm the second element inside thursday",
               //YY/MM/DD
               dueDate: '2024-08-22',

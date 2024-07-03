@@ -4,7 +4,7 @@ import listContainer from "./list-container/list-container";
 
 export const renderTodoLists = function() {
   
-  const { getCollection, createNewItem, createNewSection, deleteListItem, getCurrentPage, createNewPage } = Data;
+  const { getCollection, createNewItem, createNewSection, deleteListItem, getCurrentPage, createNewPage, findElement } = Data;
   const { addTodoItemToList } = todoElement;
   const {createListContainer} = listContainer;
 
@@ -34,7 +34,8 @@ export const renderTodoLists = function() {
 
   const handleCheckItem = (id, dataset) => {
     const elm = document.querySelector(`[data-${dataset}='${id}'] input`);
-    console.log(elm)
+
+    findElement(id, getCollection())
 
     if(elm.checked){
       document.querySelector(`[data-${dataset}='${id}'] textarea`).style.textDecoration = 'line-through';

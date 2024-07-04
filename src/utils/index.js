@@ -43,10 +43,8 @@ export const renderTodoLists = function() {
     }else{
       document.querySelector(`[data-${dataset}='${id}'] textarea`).style.textDecoration = 'none';
     }
-
-    console.log(modifyCheck)
     
-    findElement(id, getCollection(), modifyCheck);
+    findElement(id, modifyCheck);
   }
 
   const handleNewElementInList = (query) => {

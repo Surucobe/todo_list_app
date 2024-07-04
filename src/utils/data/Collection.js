@@ -201,9 +201,15 @@ const Data = (function(){
 
   function modifyCheck(obj) {
     obj.checked = !obj.checked
+    console.log(CollectionList)
   }
 
-  function findElement(id, array, callback){
+  function modifyText(obj){
+    const elm = document.querySelector(`[data-${obj.id.match(/[a-zA-Z]+/)[0]}='${obj.id}'] textarea`).value
+    obj.text = elm
+  }
+
+  function findElement(id, callback, array = CollectionList){
     if(!Array.isArray(array)) return
 
     let elmFound = false;
@@ -218,7 +224,7 @@ const Data = (function(){
     array.forEach((obj) => {
       for(let k in obj){
         if(Array.isArray(obj[k])){
-          findElement(id, obj[k], callback);
+          findElement(id, callback, obj[k]);
         }else{
           continue;
         }
@@ -248,7 +254,7 @@ const Data = (function(){
   return {
     getCollection, getTitles, createNewItem, createNewSection, 
     createNewPage, deleteListItem, getCurrentPage, createNewPage, 
-    findElement, modifyCheck
+    findElement, modifyCheck, modifyText
   };
 })()
 

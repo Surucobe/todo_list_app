@@ -1,6 +1,8 @@
 import dayjs from "dayjs";
+import Data from "../data/Collection";
 
 const todoElement = (function(){
+  const { modifyText, findElement } = Data
 
   const calendarElement = (date) => {
     const dueDate = document.createElement('input');
@@ -108,6 +110,8 @@ const todoElement = (function(){
     listItemInput.addEventListener('click', () => handleCheck(obj.id, title.toLowerCase()))
 
     text.addEventListener('input', (e) => {
+      findElement(obj.id, modifyText)
+      console.log(obj.id, text.value)
       if(listItemInput.checked){
         listItemInput.checked = false;
         handleCheck(obj.id, title.toLowerCase());

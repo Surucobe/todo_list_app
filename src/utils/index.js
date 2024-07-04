@@ -4,7 +4,10 @@ import listContainer from "./list-container/list-container";
 
 export const renderTodoLists = function() {
   
-  const { getCollection, createNewItem, createNewSection, deleteListItem, getCurrentPage, createNewPage, findElement } = Data;
+  const {
+    getCollection, createNewItem, createNewSection, deleteListItem, getCurrentPage, 
+    createNewPage, findElement, modifyCheck
+  } = Data;
   const { addTodoItemToList } = todoElement;
   const {createListContainer} = listContainer;
 
@@ -41,8 +44,9 @@ export const renderTodoLists = function() {
       document.querySelector(`[data-${dataset}='${id}'] textarea`).style.textDecoration = 'none';
     }
 
-    findElement(id, getCollection())
+    console.log(modifyCheck)
     
+    findElement(id, getCollection(), modifyCheck);
   }
 
   const handleNewElementInList = (query) => {

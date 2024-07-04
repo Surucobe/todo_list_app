@@ -199,21 +199,26 @@ const Data = (function(){
     return elementToSend
   }
 
-  function findElement(id, array){
+  function modifyCheck(obj) {
+    obj.checked = !obj.checked
+  }
+
+  function findElement(id, array, callback){
     if(!Array.isArray(array)) return
 
     let elmFound = false;
 
     if(array.find(elm => elm.id ==id) != undefined){
       elmFound = true;
-      return console.log(array.find(elm => elm.id ==id));
+      callback(array.find(elm => elm.id ==id));
+      return
     }
 
     if(elmFound == true) return;
     array.forEach((obj) => {
       for(let k in obj){
         if(Array.isArray(obj[k])){
-          findElement(id, obj[k]);
+          findElement(id, obj[k], callback);
         }else{
           continue;
         }
@@ -240,7 +245,11 @@ const Data = (function(){
     })
   }
 
-  return {getCollection, getTitles, createNewItem, createNewSection, createNewPage, deleteListItem, getCurrentPage, createNewPage, findElement};
+  return {
+    getCollection, getTitles, createNewItem, createNewSection, 
+    createNewPage, deleteListItem, getCurrentPage, createNewPage, 
+    findElement, modifyCheck
+  };
 })()
 
 export default Data;

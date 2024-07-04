@@ -100,6 +100,7 @@ const Data = (function(){
       description: 'Total accurate descripton',
       todoCollection: [
         {
+          id:'year',
           title: '2024',
           todoList: [
             {
@@ -199,26 +200,22 @@ const Data = (function(){
   }
 
   function findElement(id, array){
-    let hasArray = false;
-    let hasId = array.some(someObj => {
-      if(someObj.id == id){
-        console.log('We found it boss')
-        return true
-      }else{
-        return false
-      }
-    });
+    if(!Array.isArray(array)) return
 
-    array.forEach(obj => {
-      if(hasId){
-        return
-      };
-      for(const property in obj){
-        if(!hasArray){
-          hasArray = Array.isArray(obj[property]);
-        }
-        if(!hasId && hasArray){
-          findElement(id, obj[property])
+    let elmFound = false;
+
+    if(array.find(elm => elm.id ==id) != undefined){
+      elmFound = true;
+      return console.log(array.find(elm => elm.id ==id));
+    }
+
+    if(elmFound == true) return;
+    array.forEach((obj) => {
+      for(let k in obj){
+        if(Array.isArray(obj[k])){
+          findElement(id, obj[k]);
+        }else{
+          continue;
         }
       }
     })

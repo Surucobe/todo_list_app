@@ -35,13 +35,13 @@ export const renderTodoLists = function() {
   const handleCheckItem = (id, dataset) => {
     const elm = document.querySelector(`[data-${dataset}='${id}'] input`);
 
-    findElement(id, getCollection())
-
     if(elm.checked){
       document.querySelector(`[data-${dataset}='${id}'] textarea`).style.textDecoration = 'line-through';
     }else{
       document.querySelector(`[data-${dataset}='${id}'] textarea`).style.textDecoration = 'none';
     }
+
+    findElement(id, getCollection())
     
   }
 

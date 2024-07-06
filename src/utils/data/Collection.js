@@ -176,32 +176,20 @@ const Data = (function(){
     return `${id}_${number}`
   }
 
-  function createNewItem(query){
-    const currentPage = getCurrentPage();
-    let elementToSend
+  function createNewItem(obj){
+    if(obj.todoList.length != 0){
+      obj.todoList.push(createNewListItem(createItemId(obj.id, obj.todoList.length.toString())))
+    }else{
+      obj.todoList.push(createNewListItem(createItemId(obj.id, '1')))
+    }
 
-    CollectionList.forEach(elm => {
-      if(elm.id == currentPage){
-        elm.todoCollection.forEach(obj => {
-          if(obj.title == query){
-            if(obj.todoList.length != 0){
-              obj.todoList.push(createNewListItem(createItemId(obj.id, obj.todoList[obj.todoList.length-1].id)))
-            }else{
-              obj.todoList.push(createNewListItem(createItemId(obj.id, '1')))
-            }
-            elementToSend = obj.todoList[obj.todoList.length-1]
-          }
-        })
-        return true
-      }
-    })
+    console.log(CollectionList)
 
-    return elementToSend
+    return obj.todoList[obj.todoList.length-1]
   }
 
   function modifyCheck(obj) {
     obj.checked = !obj.checked
-    console.log(CollectionList)
   }
 
   function modifyText(obj){
@@ -212,24 +200,20 @@ const Data = (function(){
   function findElement(id, callback, array = CollectionList){
     if(!Array.isArray(array)) return
 
-    let elmFound = false;
+    for (const elm of array) {
+      if (elm.id == id) {
+        return callback(elm);
+      }
 
-    if(array.find(elm => elm.id ==id) != undefined){
-      elmFound = true;
-      callback(array.find(elm => elm.id ==id));
-      return
-    }
-
-    if(elmFound == true) return;
-    array.forEach((obj) => {
-      for(let k in obj){
-        if(Array.isArray(obj[k])){
-          findElement(id, callback, obj[k]);
-        }else{
-          continue;
+      for (const key in elm) {
+        if (Array.isArray(elm[key])) {
+          const result = findElement(id, callback, elm[key]);
+          if (result !== undefined) {
+            return result; // Return as soon as the element is found
+          }
         }
       }
-    })
+    }
   }
 
   //IDEA: Recursivity may be use but this may be a good approach anyway, for now i will do nothing about it

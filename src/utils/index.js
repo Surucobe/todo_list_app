@@ -47,9 +47,9 @@ export const renderTodoLists = function() {
     findElement(id, modifyCheck);
   }
 
-  const handleNewElementInList = (query) => {
-    const elm = createNewItem(query);
-    const newTodoItem = addTodoItemToList(elm, query, handleCheckItem, handleItemDelete);
+  const handleNewElementInList = (title) => {
+    const elm = findElement(title, createNewItem)
+    const newTodoItem = addTodoItemToList(elm, title, handleCheckItem, handleItemDelete);
 
     return newTodoItem;
   }
@@ -88,8 +88,8 @@ export const renderTodoLists = function() {
     return add;
   };
 
-  const returnListContainer = (elm, id) => {
-    const {title, todoList} = elm;
+  const returnListContainer = (elm) => {
+    const {title, todoList, id} = elm;
 
     const todoListContainer = createListContainer(returnUpper(title), id);
     const addNew = addNewItemToPage();
@@ -100,7 +100,7 @@ export const renderTodoLists = function() {
       })
     }
 
-    addNew.addEventListener('click', () => handleNewElement(todoListContainer, handleNewElementInList(title),addNew));
+    addNew.addEventListener('click', () => handleNewElement(todoListContainer, handleNewElementInList(id),addNew));
 
     todoListContainer.appendChild(addNew);
     
@@ -120,7 +120,7 @@ export const renderTodoLists = function() {
 
     container.appendChild(renderHeader(collectionToRender.id, collectionToRender.description));
 
-    collectionToRender.todoCollection.forEach(elm => container.appendChild(returnListContainer(elm, collectionToRender.id)));
+    collectionToRender.todoCollection.forEach(elm => container.appendChild(returnListContainer(elm)));
 
     const newSection = addNewItemToPage();
     newSection.addEventListener('click', () => handleNewElement(container, handleNewSection() ,newSection));

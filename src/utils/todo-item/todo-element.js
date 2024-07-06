@@ -111,7 +111,7 @@ const todoElement = (function(){
 
     text.addEventListener('input', (e) => {
       findElement(obj.id, modifyText)
-      console.log(obj.id, text.value)
+
       if(listItemInput.checked){
         listItemInput.checked = false;
         handleCheck(obj.id, title.toLowerCase());

@@ -128,9 +128,10 @@ export const renderTodoLists = function() {
 }
 
   const changeList = (child) => {
+    debugger
     const parent = document.getElementById('app')
-    if(parent.childNodes.length > 1){
-      removeElement(parent, parent.childNodes[1])
+    if(parent.childNodes.length > 2){
+      removeElement(parent, parent.childNodes[2])
     }
     
     parent.appendChild(child)

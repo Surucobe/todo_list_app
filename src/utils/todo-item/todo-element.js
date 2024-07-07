@@ -10,7 +10,6 @@ const todoElement = (function(){
     dueDate.type = 'date';
 
     if(date == ''){
-      console.log('this one is empty')
       dueDate.defaultValue = dayjs().format('YYYY-MM-DD');
     }else{
       dueDate.defaultValue = dayjs().format(date);

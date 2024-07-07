@@ -20,7 +20,9 @@ const listContainer = (function(){
     title.appendChild(editButton);
     editButton.classList.add('edit-title-btn');
 
-    title.addEventListener('click', () => alert('you are about to change the title'));
+    title.addEventListener('click', () => {
+      document.querySelector('.modal-container').style.display = 'block'
+    });
 
     const deleteButton = document.createElement('span');
     deleteButton.classList.add('delete')

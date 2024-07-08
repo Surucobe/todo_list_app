@@ -1,11 +1,14 @@
+import { renderTodoLists } from "../../utils";
 import toDoContainer from "../../components/todo-container";
 
-const listItem = (title, callback) => {
+const listItem = (title) => {
+  const {changeList} = renderTodoLists()
+
   const newTitle = document.createElement('li');
     newTitle.innerHTML = title;
 
     newTitle.addEventListener('click', (e) => {
-      callback(toDoContainer(title));
+      changeList(toDoContainer(title));
     });
 
     return newTitle;

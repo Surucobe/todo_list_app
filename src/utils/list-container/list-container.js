@@ -1,3 +1,5 @@
+import { changeModalVisibility } from '../../components/modal';
+
 import editIcon from '../../assets/images/edit-icon.svg';
 
 const listContainer = (function(){
@@ -20,9 +22,7 @@ const listContainer = (function(){
     title.appendChild(editButton);
     editButton.classList.add('edit-title-btn');
 
-    title.addEventListener('click', () => {
-      document.querySelector('.modal-container').style.display = 'block'
-    });
+    title.addEventListener('click', () => changeModalVisibility(id));
 
     const deleteButton = document.createElement('span');
     deleteButton.classList.add('delete')

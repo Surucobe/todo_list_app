@@ -12,7 +12,7 @@ import userPicture from '../assets/images/diabellstar.jpg';
 
 const main = renderTodoLists();
 
-const sidebar = (callback) => {
+const sidebar = () => {
   const sidebar = document.createElement('div');
   sidebar.classList.add('sidebar-sections');
 
@@ -24,7 +24,7 @@ const sidebar = (callback) => {
   const header = document.createElement('h2');
   header.innerText = 'My lists';
 
-  const sidebarItemListContainer = list(Data.getTitles(), callback);
+  const sidebarItemListContainer = list(Data.getTitles());
 
   const addSectionTitle = main.addNewItemToPage();
 

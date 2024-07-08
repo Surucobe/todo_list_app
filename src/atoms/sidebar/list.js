@@ -1,9 +1,9 @@
 import listItem from "./list_item";
 
-const list = (array, callback) => {
+const list = (array) => {
   const sidebarListContainer = document.createElement('ul');
 
-  array.forEach(title => sidebarListContainer.appendChild(listItem(title, callback)));
+  array.forEach(title => sidebarListContainer.appendChild(listItem(title)));
 
   return sidebarListContainer;
 }

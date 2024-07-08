@@ -128,7 +128,6 @@ export const renderTodoLists = function() {
 }
 
   const changeList = (child) => {
-    debugger
     const parent = document.getElementById('app')
     if(parent.childNodes.length > 2){
       removeElement(parent, parent.childNodes[2])

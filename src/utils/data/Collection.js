@@ -118,13 +118,11 @@ const Data = (function(){
 
   const getCollection = () => CollectionList;
 
-  const getTitles = () => {
-    const test = CollectionList.map(item => item.id);
-
-    return test
-  }
+  const getTitles = () => CollectionList.map(item => item.id)
 
   const getCurrentPage = () => document.querySelector('.header h2').innerHTML.toLocaleLowerCase();
+
+  const createItemId = (id, num) => `${id}_${Number(num.match(/\d+/)[0])+1}`
 
   function createNewPage(){
     CollectionList.push(
@@ -150,7 +148,8 @@ const Data = (function(){
     return template
   }
 
-  function createNewSection() {
+  //TODO: chnage to use the findElement
+  function createNewSection(){
     let returningItem;
     const currentPage = getCurrentPage();
 
@@ -170,12 +169,6 @@ const Data = (function(){
     return returningItem;
   }
 
-  function createItemId(id, num){
-    const number = Number(num.match(/\d+/)[0])+1;
-
-    return `${id}_${number}`
-  }
-
   function createNewItem(obj){
     if(obj.todoList.length != 0){
       obj.todoList.push(createNewListItem(createItemId(obj.id, obj.todoList.length.toString())))
@@ -183,12 +176,10 @@ const Data = (function(){
       obj.todoList.push(createNewListItem(createItemId(obj.id, '1')))
     }
 
-    console.log(CollectionList)
-
     return obj.todoList[obj.todoList.length-1]
   }
 
-  function modifyCheck(obj) {
+  function modifyCheck(obj){
     obj.checked = !obj.checked
   }
 
@@ -217,7 +208,7 @@ const Data = (function(){
   }
 
   //IDEA: Recursivity may be use but this may be a good approach anyway, for now i will do nothing about it
-  function deleteListItem(query, containerName) {
+  function deleteListItem(query, containerName){
     const currentPage = getCurrentPage();
 
     CollectionList.some(elm => {

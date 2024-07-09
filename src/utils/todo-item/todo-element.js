@@ -94,12 +94,7 @@ const todoElement = (function(){
     deleteItem.classList.add('delete-item-element');
     deleteItem.innerHTML = 'X';
 
-    deleteItem.addEventListener('click', () => {
-      console.log(title)
-      console.log(obj)
-      debugger
-      handleDelete(obj.id, title)
-    })
+    deleteItem.addEventListener('click', () => handleDelete(obj.id, title))
 
     const dueDate = calendarElement(obj.dueDate);
 

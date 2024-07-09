@@ -149,24 +149,16 @@ const Data = (function(){
   }
 
   //TODO: chnage to use the findElement
-  function createNewSection(){
-    let returningItem;
-    const currentPage = getCurrentPage();
-
+  function createNewSection(obj){
     const section = {
       id: 'default',
-      title: 'write your title',
+      title: 'default',
       todoList: []
     };
 
-    CollectionList.some(obj => {
-      if(obj.id == currentPage){
-        obj.todoCollection.push(section);
-        returningItem = obj.todoCollection[obj.todoCollection.length-1];
-      }
-    });
+    obj.todoCollection.push(section);
 
-    return returningItem;
+    return obj.todoCollection[obj.todoCollection.length-1];
   }
 
   function createNewItem(obj){

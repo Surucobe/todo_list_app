@@ -11,8 +11,9 @@ export const renderTodoLists = function() {
   const { addTodoItemToList } = todoElement;
   const {createListContainer} = listContainer;
 
-  const handleNewSection = () => {
-    const section = returnListContainer(createNewSection());
+  const handleNewSection = (id) => {
+    const elm = findElement(id, createNewSection);
+    const section = returnListContainer(elm);
     return section;
   }
 
@@ -88,19 +89,21 @@ export const renderTodoLists = function() {
     return add;
   };
 
-  const returnListContainer = (elm, dataId) => {
+  const returnListContainer = (elm, dataId = getCurrentPage().toLowerCase()) => {
     const {title, todoList, id} = elm;
 
-    const todoListContainer = createListContainer(returnUpper(title), dataId);
+    const todoListContainer = createListContainer(returnUpper(title), dataId, handleListDelete);
     const addNew = addNewItemToPage();
 
-    if(todoList != undefined){
+    if(todoList.length != 0){
       todoList.forEach(elm => {
         todoListContainer.appendChild(addTodoItemToList(elm, title, handleCheckItem, handleItemDelete));
       })
     }
 
-    addNew.addEventListener('click', () => handleNewElement(todoListContainer, handleNewElementInList(id),addNew));
+    addNew.addEventListener('click', () => {
+      handleNewElement(todoListContainer, handleNewElementInList(id),addNew)
+    });
 
     todoListContainer.appendChild(addNew);
     
@@ -125,7 +128,9 @@ export const renderTodoLists = function() {
     collectionToRender.todoCollection.forEach(elm => container.appendChild(returnListContainer(elm, collectionToRender.id)));
 
     const newSection = addNewItemToPage();
-    newSection.addEventListener('click', () => handleNewElement(container, handleNewSection() ,newSection));
+    newSection.addEventListener('click', () => {
+      handleNewElement(container, handleNewSection(collectionToRender.id) ,newSection)
+    });
     container.appendChild(newSection);
 }
 

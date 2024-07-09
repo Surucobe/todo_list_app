@@ -120,7 +120,7 @@ const Data = (function(){
 
   const getTitles = () => CollectionList.map(item => item.id)
 
-  const getCurrentPage = () => document.querySelector('.header h2').innerHTML.toLocaleLowerCase();
+  const getCurrentPage = () => document.querySelector('.header h2').innerHTML.toLowerCase();
 
   const createItemId = (id, num) => `${id}_${Number(num.match(/\d+/)[0])+1}`
 

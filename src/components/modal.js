@@ -41,7 +41,9 @@ const modal = () => {
 
   modal.appendChild(infoConatiner);
 
-  modalContainer.addEventListener('click', () => changeModalVisibility());
+  modalContainer.addEventListener('click', (e) => {
+    if(e.target.classList.contains('modal-container')) changeModalVisibility()
+  });
 
   modalContainer.appendChild(modal);
 

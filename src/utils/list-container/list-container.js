@@ -1,11 +1,10 @@
 import { changeModalVisibility } from '../../components/modal';
 
-import editIcon from '../../assets/images/edit-icon.svg';
-
 const listContainer = (function(){
   const createListContainer = (todoTitle, id) => {
     const container = document.createElement('div');
     container.classList.add('feature-item');
+
     container.setAttribute(`data-${id}`, todoTitle.toLocaleLowerCase())
 
     const titleContainer = document.createElement('div');

@@ -23,7 +23,7 @@ export const renderTodoLists = function() {
   }
 
   const handleItemDelete = (query, containerName) =>{
-    const parent = document.querySelector(`[data-${getCurrentPage().toLocaleLowerCase()}="${containerName}"]`);
+    const parent = document.querySelector(`[data-${getCurrentPage().toLowerCase()}="${containerName.toLowerCase()}"]`);
     const child = document.querySelector(`[data-${containerName}="${query}"]`);
 
     deleteListItem(query, containerName)
@@ -88,10 +88,10 @@ export const renderTodoLists = function() {
     return add;
   };
 
-  const returnListContainer = (elm) => {
+  const returnListContainer = (elm, dataId) => {
     const {title, todoList, id} = elm;
 
-    const todoListContainer = createListContainer(returnUpper(title), id);
+    const todoListContainer = createListContainer(returnUpper(title), dataId);
     const addNew = addNewItemToPage();
 
     if(todoList != undefined){
@@ -107,7 +107,9 @@ export const renderTodoLists = function() {
     return todoListContainer;
   }
 
-  const removeElement = (parent, child) => parent.removeChild(child);
+  const removeElement = (parent, child) => {
+    parent.removeChild(child)
+  };
 
   //functions takes the container in which it will render and the name of the object that will be use for it
   const renderList = (container, ref) => {
@@ -120,7 +122,7 @@ export const renderTodoLists = function() {
 
     container.appendChild(renderHeader(collectionToRender.id, collectionToRender.description));
 
-    collectionToRender.todoCollection.forEach(elm => container.appendChild(returnListContainer(elm)));
+    collectionToRender.todoCollection.forEach(elm => container.appendChild(returnListContainer(elm, collectionToRender.id)));
 
     const newSection = addNewItemToPage();
     newSection.addEventListener('click', () => handleNewElement(container, handleNewSection() ,newSection));
@@ -128,7 +130,7 @@ export const renderTodoLists = function() {
 }
 
   const changeList = (child) => {
-    const parent = document.getElementById('app')
+    const parent = document.getElementById('app');
     if(parent.childNodes.length > 2){
       removeElement(parent, parent.childNodes[2])
     }

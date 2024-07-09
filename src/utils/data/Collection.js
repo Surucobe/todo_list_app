@@ -148,7 +148,6 @@ const Data = (function(){
     return template
   }
 
-  //TODO: chnage to use the findElement
   function createNewSection(obj){
     const section = {
       id: 'default',
@@ -185,7 +184,11 @@ const Data = (function(){
 
     for (const elm of array) {
       if (elm.id == id) {
-        return callback(elm);
+        if(callback != undefined){
+          return callback(elm);
+        }else{
+          return elm;
+        }
       }
 
       for (const key in elm) {
@@ -200,22 +203,15 @@ const Data = (function(){
   }
 
   //IDEA: Recursivity may be use but this may be a good approach anyway, for now i will do nothing about it
-  function deleteListItem(query, containerName){
-    const currentPage = getCurrentPage();
+  function deleteListItem(query, container){
 
-    CollectionList.some(elm => {
-      if(elm.id == currentPage){
-        elm.todoCollection.forEach(obj => {
-          if(obj.id == containerName){
-            obj.todoList.forEach((item, index) => {
-              if(item.id == query){
-                obj.todoList.splice(index, 1);
-              }
-            })
-          }
-        })
-      }
-    })
+    const elmContainer = findElement(container)
+
+    const index = elmContainer.todoList.findIndex((elm) => elm.id == query)
+    elmContainer.todoList.splice(index, 1)
+
+    console.log(CollectionList)
+    //obj.todoList.splice(index, 1);
   }
 
   return {

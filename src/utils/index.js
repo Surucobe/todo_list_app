@@ -75,8 +75,6 @@ export const renderTodoLists = function() {
   const newSideBarElement = () => {
     const newCollectionElement = createNewPage();
 
-    console.log(newCollectionElement)
-
     return newCollectionElement;
   }
 
@@ -110,9 +108,7 @@ export const renderTodoLists = function() {
     return todoListContainer;
   }
 
-  const removeElement = (parent, child) => {
-    parent.removeChild(child)
-  };
+  const removeElement = (parent, child) => parent.removeChild(child);
 
   //functions takes the container in which it will render and the name of the object that will be use for it
   const renderList = (container, ref) => {

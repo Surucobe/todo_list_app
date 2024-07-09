@@ -6,7 +6,6 @@ const listContainer = (function(){
   const properDataSetValue = (str) => str.split(' ').join('_');
 
   const createListContainer = (todoTitle, id, handleDelete) => {
-    debugger
     const container = document.createElement('div');
     container.classList.add('feature-item');
 

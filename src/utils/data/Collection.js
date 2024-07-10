@@ -122,7 +122,7 @@ const Data = (function(){
 
   const getCurrentPage = () => document.querySelector('.header h2').innerHTML.toLowerCase();
 
-  const createItemId = (id, num) => `${id}_${Number(num.match(/\d+/)[0])+1}`
+  const createItemId = (id, num) => `${id}_${num+1}`
 
   function createNewPage(){
     CollectionList.push(
@@ -161,8 +161,9 @@ const Data = (function(){
   }
 
   function createNewItem(obj){
+    debugger
     if(obj.todoList.length != 0){
-      obj.todoList.push(createNewListItem(createItemId(obj.id, obj.todoList.length.toString())))
+      obj.todoList.push(createNewListItem(createItemId(obj.id, Number(obj.todoList[obj.todoList.length-1].id.match(/\d+/)[0]))))
     }else{
       obj.todoList.push(createNewListItem(createItemId(obj.id, '1')))
     }

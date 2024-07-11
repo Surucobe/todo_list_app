@@ -180,7 +180,6 @@ const Data = (function(){
   }
 
   function modifyTitle(id, value){
-    debugger
     const objInCollection = findElement(id);
     let test = document.querySelector(`[data-${getCurrentPage()}='${id}']`);
     test.querySelector('h3').innerHTML = value;

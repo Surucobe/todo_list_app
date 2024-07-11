@@ -1,9 +1,10 @@
-import Data from '../../../utils/data/Collection.js';
+import Data from '../../utils/data/Collection';
 
-let modalValueToChange;
+import '../../../styles/modal.css'
+
+let modalValueToChange
 
 export function changeModalVisibility(id) {
-  debugger
   if(document.querySelector('.modal-container').style.display !== 'block'){
     document.querySelector('.modal-container').style.display = 'block';
   }else{
@@ -13,8 +14,20 @@ export function changeModalVisibility(id) {
   modalValueToChange = id;
 }
 
-const modalForTitle = () => {
-  const { modifyTitle } = Data;
+const modal = () => {
+
+  const { modifyTitle } = Data
+
+  const modalContainer = document.createElement('div');
+  modalContainer.classList.add('modal-container');
+
+  const modal = document.createElement('div');
+  modal.classList.add('modal');
+
+  const modalHeader = document.createElement('div');
+  modalHeader.classList.add('modal-header');
+  modalHeader.innerHTML = '<h4>Do you wish to change the title?</h4>';
+  modal.appendChild(modalHeader);
 
   const infoConatiner = document.createElement('div');
   infoConatiner.classList.add('info-container');
@@ -36,7 +49,15 @@ const modalForTitle = () => {
     }
   })
 
-  return infoConatiner;
+  modal.appendChild(infoConatiner);
+
+  modalContainer.addEventListener('click', (e) => {
+    if(e.target.classList.contains('modal-container')) changeModalVisibility()
+  });
+
+  modalContainer.appendChild(modal);
+
+  return modalContainer;
 }
 
-export default modalForTitle;
+export default modal;

@@ -133,7 +133,7 @@ export const renderTodoLists = function() {
   const changeList = (child) => {
     const parent = document.getElementById('app');
     if(parent.childNodes.length > 2){
-      removeElement(parent, parent.childNodes[2])
+      removeElement(parent, parent.childNodes[parent.childNodes.length-1])
     }
     
     parent.appendChild(child)

@@ -1,4 +1,4 @@
-import { changeModalVisibility } from '../../components/modal/cells/modalForTitle';
+import { changeModalVisibility } from '../../components/modal/modal';
 import {editButton} from './cells/editButton';
 import {deleteButton} from './cells/deleteButton';
 

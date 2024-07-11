@@ -178,16 +178,13 @@ const Data = (function(){
     const elm = document.querySelector(`[data-${obj.id.match(/[a-zA-Z]+/)[0]}='${obj.id}'] textarea`).value
     obj.text = elm
   }
+
   function modifyTitle(id, value){
     const objInCollection = findElement(id);
+    let test = document.querySelector(`[data-${getCurrentPage()}='${id}']`);
+    test.querySelector('h3').innerHTML = value;
 
-    console.log(objInCollection);
-    console.log(`Value: ${value}`)
-    
     objInCollection.title = value
-    
-    console.log(objInCollection);
-    console.log(getCollection())
   }
 
   function findElement(id, callback, array = CollectionList){

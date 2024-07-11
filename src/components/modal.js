@@ -41,7 +41,13 @@ const modal = () => {
   confirmChanges.innerHTML = 'confirm';
   infoConatiner.appendChild(confirmChanges);
 
-  confirmChanges.addEventListener('click', () => modifyTitle(modalValueToChange, changeValue.value))
+  confirmChanges.addEventListener('click', () => {
+    if(changeValue.value != ''){
+      modifyTitle(modalValueToChange, changeValue.value);
+    }else{
+      return;
+    }
+  })
 
   modal.appendChild(infoConatiner);
 

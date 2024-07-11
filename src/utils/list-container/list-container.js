@@ -13,20 +13,24 @@ const listContainer = (function(){
 
     const titleContainer = document.createElement('div');
     
+    const titleHeader = document.createElement('div');
+    titleHeader.classList.add('container_header');
+
     const title = document.createElement('h3');
-    title.classList.add('container_header')
     title.innerHTML = todoTitle;
+    titleHeader.appendChild(title)
     
     const divider = document.createElement('hr');
     divider.classList.add('solid');
 
-    title.appendChild(editButton());
+    const modalEditButton = editButton();
+    titleHeader.appendChild(modalEditButton);
 
-    title.addEventListener('click', () => changeModalVisibility(todoTitle.toLocaleLowerCase()));
+    modalEditButton.addEventListener('click', () => changeModalVisibility(todoTitle.toLocaleLowerCase()));
 
     const headerDeleteButton = deleteButton(handleDelete);
 
-    titleContainer.appendChild(title);
+    titleContainer.appendChild(titleHeader);
     titleContainer.appendChild(divider);
     titleContainer.appendChild(headerDeleteButton);
     

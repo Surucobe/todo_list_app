@@ -180,6 +180,7 @@ const Data = (function(){
   }
 
   function modifyTitle(id, value){
+    debugger
     const objInCollection = findElement(id);
     let test = document.querySelector(`[data-${getCurrentPage()}='${id}']`);
     test.querySelector('h3').innerHTML = value;
@@ -210,16 +211,14 @@ const Data = (function(){
     }
   }
 
-  //IDEA: Recursivity may be use but this may be a good approach anyway, for now i will do nothing about it
+  function deleteList(){}
+
   function deleteListItem(query, container){
 
     const elmContainer = findElement(container)
 
     const index = elmContainer.todoList.findIndex((elm) => elm.id == query)
     elmContainer.todoList.splice(index, 1)
-
-    console.log(CollectionList)
-    //obj.todoList.splice(index, 1);
   }
 
   return {

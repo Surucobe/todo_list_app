@@ -6,7 +6,7 @@ const app = document.getElementById('app');
 
 import toDoContainer from "./src/components/todo-container.js";
 import sidebar from "./src/components/sidebar.js"
-import modal from "./src/components/modal.js";
+import modal from "./src/components/modal/modal.js";
 
 import './styles/global.css';
 

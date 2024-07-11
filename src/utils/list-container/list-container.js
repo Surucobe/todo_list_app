@@ -22,7 +22,7 @@ const listContainer = (function(){
 
     title.appendChild(editButton());
 
-    title.addEventListener('click', () => changeModalVisibility(id));
+    title.addEventListener('click', () => changeModalVisibility(todoTitle.toLocaleLowerCase()));
 
     const headerDeleteButton = deleteButton(handleDelete);
 

@@ -161,7 +161,6 @@ const Data = (function(){
   }
 
   function createNewItem(obj){
-    debugger
     if(obj.todoList.length != 0){
       obj.todoList.push(createNewListItem(createItemId(obj.id, Number(obj.todoList[obj.todoList.length-1].id.match(/\d+/)[0]))))
     }else{
@@ -178,6 +177,17 @@ const Data = (function(){
   function modifyText(obj){
     const elm = document.querySelector(`[data-${obj.id.match(/[a-zA-Z]+/)[0]}='${obj.id}'] textarea`).value
     obj.text = elm
+  }
+  function modifyTitle(id, value){
+    const objInCollection = findElement(id);
+
+    console.log(objInCollection);
+    console.log(`Value: ${value}`)
+    
+    objInCollection.title = value
+    
+    console.log(objInCollection);
+    console.log(getCollection())
   }
 
   function findElement(id, callback, array = CollectionList){
@@ -218,7 +228,7 @@ const Data = (function(){
   return {
     getCollection, getTitles, createNewItem, createNewSection, 
     createNewPage, deleteListItem, getCurrentPage, createNewPage, 
-    findElement, modifyCheck, modifyText
+    findElement, modifyCheck, modifyText, modifyTitle
   };
 })()
 

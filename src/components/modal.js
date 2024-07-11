@@ -5,16 +5,18 @@ import '../../styles/modal.css'
 let modalValueToChange
 
 export function changeModalVisibility(id) {
-  if(document.querySelector('.modal-container').style.display == 'none'){
+  if(document.querySelector('.modal-container').style.display !== 'block'){
     document.querySelector('.modal-container').style.display = 'block';
   }else{
     document.querySelector('.modal-container').style.display = 'none';
   }
-  // modalValueToChange = obj;
-  Data.findElement(id, console.log)
+
+  modalValueToChange = id;
 }
 
 const modal = () => {
+
+  const { modifyTitle } = Data
 
   const modalContainer = document.createElement('div');
   modalContainer.classList.add('modal-container');
@@ -38,6 +40,8 @@ const modal = () => {
   confirmChanges.classList.add('confirm-btn');
   confirmChanges.innerHTML = 'confirm';
   infoConatiner.appendChild(confirmChanges);
+
+  confirmChanges.addEventListener('click', () => modifyTitle(modalValueToChange, changeValue.value))
 
   modal.appendChild(infoConatiner);
 

@@ -2,7 +2,6 @@ import { renderTodoLists } from "../../utils";
 import toDoContainer from "../../components/todo-container";
 
 const listItem = (title) => {
-  const {changeList} = renderTodoLists()
 
   const newTitle = document.createElement('li');
     newTitle.innerHTML = title;

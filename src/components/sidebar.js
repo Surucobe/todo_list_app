@@ -32,8 +32,6 @@ const sidebar = () => {
     const newElm = main.newSideBarElement();
 
     sidebarItemListContainer.appendChild(listItem(newElm.id, main.changeList));
-
-    console.log(Data.getCollection())
   })
 
   mainList.appendChild(header);

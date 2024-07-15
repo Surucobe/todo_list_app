@@ -1,11 +1,11 @@
-import { changeModalVisibility } from '../../components/modal/modal';
 import {editButton} from './cells/editButton';
 import {deleteButton} from './cells/deleteButton';
+import {changeModalVisibility} from '../../components/modal/modalContainer';
 
 const listContainer = (function(){
   const properDataSetValue = (str) => str.split(' ').join('_');
 
-  const createListContainer = (todoTitle, id, handleDelete) => {
+  const createListContainer = (todoTitle, id) => {
     const container = document.createElement('div');
     container.classList.add('feature-item');
 
@@ -26,9 +26,10 @@ const listContainer = (function(){
     const modalEditButton = editButton();
     titleHeader.appendChild(modalEditButton);
 
-    modalEditButton.addEventListener('click', () => changeModalVisibility(todoTitle.toLocaleLowerCase()));
+    modalEditButton.addEventListener('click', () => changeModalVisibility(todoTitle.toLowerCase(), 'title'));
 
-    const headerDeleteButton = deleteButton(handleDelete);
+    const headerDeleteButton = deleteButton(changeModalVisibility, todoTitle.toLowerCase());
+    headerDeleteButton.addEventListener('click', () => changeModalVisibility(todoTitle.toLowerCase(), 'delete'));
 
     titleContainer.appendChild(titleHeader);
     titleContainer.appendChild(divider);

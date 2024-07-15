@@ -2,6 +2,8 @@ import Data from '../../../utils/data/Collection';
 
 const modalTitle = (title) => {
 
+  const { modifyTitle } = Data;
+
   const modal = document.createElement('div');
   modal.classList.add('modal');
 
@@ -24,7 +26,7 @@ const modalTitle = (title) => {
 
   confirmChanges.addEventListener('click', () => {
     if(changeValue.value != ''){
-      modifyTitle(modalToCall, changeValue.value);
+      modifyTitle(title, changeValue.value);
     }else{
       return;
     }

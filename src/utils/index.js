@@ -20,7 +20,6 @@ export const renderTodoLists = function() {
   const handleSectionDelete = () => {}
 
   const handleListDelete = (query) => {
-    debugger
     const parent = document.querySelector('.feature-list');
     const child = document.querySelector(`[data-${getCurrentPage()}='${query}']`);
 
@@ -128,10 +127,7 @@ export const renderTodoLists = function() {
     collectionToRender.todoCollection.forEach(elm => container.appendChild(returnListContainer(elm, collectionToRender.id)));
 
     const newSection = addNewItemToPage();
-    newSection.addEventListener('click', () => {
-      debugger
-      handleNewElement(container, handleNewSection(collectionToRender.id) ,newSection)
-    });
+    newSection.addEventListener('click', () => handleNewElement(container, handleNewSection(collectionToRender.id) ,newSection));
     container.appendChild(newSection);
 }
 

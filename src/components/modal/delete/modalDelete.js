@@ -26,8 +26,8 @@ const modalDelete = (title, callback) => {
 
   confirm.addEventListener('click', () => {
     deleteList(title);
-    handleListDelete(title)
     callback();
+    handleListDelete(title)
   })
 
   const decline = document.createElement('button');

@@ -9,7 +9,7 @@ export const renderTodoLists = function() {
     createNewPage, findElement, modifyCheck
   } = Data;
   const { addTodoItemToList } = todoElement;
-  const {createListContainer} = listContainer;
+  const { createListContainer } = listContainer;
 
   const handleNewSection = (id) => {
     const elm = findElement(id, createNewSection);
@@ -125,6 +125,7 @@ export const renderTodoLists = function() {
 
     const newSection = addNewItemToPage();
     newSection.addEventListener('click', () => {
+      debugger
       handleNewElement(container, handleNewSection(collectionToRender.id) ,newSection)
     });
     container.appendChild(newSection);

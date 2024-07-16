@@ -156,6 +156,7 @@ const Data = (function(){
     };
 
     obj.todoCollection.push(section);
+    console.log(CollectionList)
 
     return obj.todoCollection[obj.todoCollection.length-1];
   }
@@ -187,6 +188,13 @@ const Data = (function(){
     objInCollection.title = value
   }
 
+  function deleteList(query){
+    const current = findElement(getCurrentPage());
+    const index = current.todoCollection.findIndex((elm) => elm.id == query)
+    
+    current.todoCollection.splice(index, 1);
+  }
+
   function findElement(id, callback, array = CollectionList){
     if(!Array.isArray(array)) return
 
@@ -210,8 +218,6 @@ const Data = (function(){
     }
   }
 
-  function deleteList(){}
-
   function deleteListItem(query, container){
 
     const elmContainer = findElement(container)
@@ -223,7 +229,7 @@ const Data = (function(){
   return {
     getCollection, getTitles, createNewItem, createNewSection, 
     createNewPage, deleteListItem, getCurrentPage, createNewPage, 
-    findElement, modifyCheck, modifyText, modifyTitle
+    findElement, modifyCheck, modifyText, modifyTitle, deleteList
   };
 })()
 

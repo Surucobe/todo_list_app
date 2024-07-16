@@ -21,7 +21,7 @@ function renderModal(keyWord){
   if(keyWord !== 'delete'){
     modalContainer.appendChild(modalTitle(modalQuery));
   }else if(keyWord == 'delete'){
-    modalContainer.appendChild(modalDelete(modalQuery));
+    modalContainer.appendChild(modalDelete(modalQuery, changeModalVisibility));
   }
 }
 
@@ -32,8 +32,10 @@ export function changeModalVisibility(str = undefined, keyWord) {
     document.querySelector('.modal-container').style.display = 'none';
   }
 
-  if(str !== undefined) modalQuery = str
-  renderModal(keyWord);
+  if(str !== undefined){
+    modalQuery = str;
+    renderModal(keyWord);
+  }
 }
 
 const modalContainer = () => {

@@ -1,7 +1,8 @@
 import Data from '../../../utils/data/Collection';
+import { renderTodoLists } from '../../../utils';
 
 const modalDelete = (title, callback) => {
-
+  const { handleListDelete } = renderTodoLists();
   const { deleteList } = Data;
 
   const modalContainer = document.createElement('div');
@@ -25,6 +26,7 @@ const modalDelete = (title, callback) => {
 
   confirm.addEventListener('click', () => {
     deleteList(title);
+    handleListDelete(title)
     callback();
   })
 

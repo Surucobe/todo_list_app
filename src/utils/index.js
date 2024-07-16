@@ -19,8 +19,12 @@ export const renderTodoLists = function() {
 
   const handleSectionDelete = () => {}
 
-  const handleListDelete = () => {
-    alert('works');
+  const handleListDelete = (query) => {
+    debugger
+    const parent = document.querySelector('.feature-list');
+    const child = document.querySelector(`[data-${getCurrentPage()}='${query}']`);
+
+    removeElement(parent, child)
   }
 
   const handleItemDelete = (query, containerName) =>{
@@ -140,5 +144,5 @@ export const renderTodoLists = function() {
     parent.appendChild(child)
   }
 
-  return {renderList, changeList, addNewItemToPage, newSideBarElement}
+  return {renderList, changeList, addNewItemToPage, newSideBarElement, handleListDelete}
 }

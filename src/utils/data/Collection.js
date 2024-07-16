@@ -186,6 +186,14 @@ const Data = (function(){
     objInCollection.title = value
   }
 
+  function deletePage(id){
+    debugger
+    const index = CollectionList.findIndex((elm) => elm.id == id)
+    CollectionList.splice(index, 1)
+
+    console.log(CollectionList)
+  }
+
   function deleteList(query){
     const current = findElement(getCurrentPage());
     const index = current.todoCollection.findIndex((elm) => elm.id == query)
@@ -225,8 +233,8 @@ const Data = (function(){
   }
 
   return {
-    getTitles, createNewItem, createNewSection, 
-    createNewPage, deleteListItem, getCurrentPage, createNewPage, 
+    getTitles, createNewItem, createNewSection, deletePage,
+    deleteListItem, getCurrentPage, createNewPage, 
     findElement, modifyCheck, modifyText, modifyTitle, deleteList
   };
 })()

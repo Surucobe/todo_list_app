@@ -1,5 +1,7 @@
 import modalTitle from './title/modalTitle';
 import modalDelete from './delete/modalDelete';
+import Data from '../../utils/data/Collection';
+import { renderTodoLists } from '../../utils';
 
 import '../../../styles/modal.css'
 
@@ -18,10 +20,18 @@ function renderModal(keyWord){
 
   clearModalContainer();
 
-  if(keyWord !== 'delete'){
-    modalContainer.appendChild(modalTitle(modalQuery));
-  }else if(keyWord == 'delete'){
-    modalContainer.appendChild(modalDelete(modalQuery, changeModalVisibility));
+  switch(keyWord){
+    case 'title':
+      modalContainer.appendChild(modalTitle(modalQuery));
+      break;
+    case 'delete':
+      modalContainer.appendChild(modalDelete(modalQuery, changeModalVisibility, Data.deleteList, renderTodoLists().handleListDelete));
+      break;
+    case 'delete-page':
+      modalContainer.appendChild(modalDelete(modalQuery, changeModalVisibility, Data.deletePage));
+      break;
+    default:
+      return;
   }
 }
 

@@ -1,6 +1,7 @@
 import Data from "./data/Collection";
 import todoElement from "./todo-item/todo-element";
 import listContainer from "./list-container/list-container";
+import { changeModalVisibility } from "../components/modal/modalContainer";
 
 export const renderTodoLists = function() {
   
@@ -17,7 +18,9 @@ export const renderTodoLists = function() {
     return section;
   }
 
-  const handleSectionDelete = () => {}
+  const handlePageDelete = (id) => {
+    changeModalVisibility(id, 'delete-page');
+  }
 
   const handleListDelete = (query) => {
     const parent = document.querySelector('.feature-list');
@@ -69,8 +72,14 @@ export const renderTodoLists = function() {
     const headerDescription = document.createElement('textarea');
     headerDescription.innerHTML = description;
 
+    const deleteBtn = document.createElement('span');
+    deleteBtn.classList.add('delete-page')
+    deleteBtn.innerHTML = 'X';
+    deleteBtn.addEventListener('click', () => handlePageDelete(id))
+
     header.appendChild(headerTitle);
     header.appendChild(headerDescription);
+    header.appendChild(deleteBtn);
 
     return header;
   }
@@ -81,7 +90,6 @@ export const renderTodoLists = function() {
     return newCollectionElement;
   }
 
-  //Adds new item to the page
   const addNewItemToPage = () => {
     const add = document.createElement('div');
     add.classList.add('add-new-element');
@@ -113,7 +121,6 @@ export const renderTodoLists = function() {
 
   const removeElement = (parent, child) => parent.removeChild(child);
 
-  //functions takes the container in which it will render and the name of the object that will be use for it
   const renderList = (container, ref) => {
     let collectionToRender = findElement(ref);
 
@@ -135,5 +142,5 @@ export const renderTodoLists = function() {
     parent.appendChild(child)
   }
 
-  return {renderList, changeList, addNewItemToPage, newSideBarElement, handleListDelete}
+  return {renderList, changeList, addNewItemToPage, newSideBarElement, handleListDelete, handlePageDelete}
 }

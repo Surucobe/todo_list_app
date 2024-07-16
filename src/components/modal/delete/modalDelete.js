@@ -1,9 +1,4 @@
-import Data from '../../../utils/data/Collection';
-import { renderTodoLists } from '../../../utils';
-
-const modalDelete = (title, callback) => {
-  const { handleListDelete } = renderTodoLists();
-  const { deleteList } = Data;
+const modalDelete = (title, callback, deleteMethod, deleteHandler) => {
 
   const modalContainer = document.createElement('div');
   modalContainer.classList.add('modal-delete-container');
@@ -25,9 +20,9 @@ const modalDelete = (title, callback) => {
   infoConatiner.appendChild(confirm);
 
   confirm.addEventListener('click', () => {
-    deleteList(title);
+    deleteMethod(title);
     callback();
-    handleListDelete(title)
+    if(deleteHandler != undefined) deleteHandler(title);
   })
 
   const decline = document.createElement('button');

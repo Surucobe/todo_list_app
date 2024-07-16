@@ -28,7 +28,7 @@ function renderModal(keyWord){
       modalContainer.appendChild(modalDelete(modalQuery, changeModalVisibility, Data.deleteList, renderTodoLists().handleListDelete));
       break;
     case 'delete-page':
-      modalContainer.appendChild(modalDelete(modalQuery, changeModalVisibility, Data.deletePage));
+      modalContainer.appendChild(modalDelete(modalQuery, changeModalVisibility, Data.deletePage, renderTodoLists().handlePageDelete));
       break;
     default:
       return;

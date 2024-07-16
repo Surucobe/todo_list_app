@@ -2,6 +2,7 @@ import Data from "./data/Collection";
 import todoElement from "./todo-item/todo-element";
 import listContainer from "./list-container/list-container";
 import { changeModalVisibility } from "../components/modal/modalContainer";
+import toDoContainer from "../components/todo-container";
 
 export const renderTodoLists = function() {
   
@@ -18,8 +19,28 @@ export const renderTodoLists = function() {
     return section;
   }
 
+  function findElementInSidebar(id){
+    let elementInSidebar
+    const parent = document.querySelector('ul');
+    const sidebar = document.querySelector('.sidebar-sections');
+    const sidebarList = sidebar.querySelectorAll(`li`);
+
+    sidebarList.forEach(elm => {
+      if(elm.innerHTML == id){
+        elementInSidebar = elm;
+      }
+    })
+
+    removeElement(parent, elementInSidebar);
+
+    return document.querySelector('li').innerHTML
+  }
+
   const handlePageDelete = (id) => {
-    changeModalVisibility(id, 'delete-page');
+    const elm = findElementInSidebar(id);
+    const parent = document.querySelector('.feature-list');
+
+    changeList(toDoContainer(elm));
   }
 
   const handleListDelete = (query) => {
@@ -75,7 +96,7 @@ export const renderTodoLists = function() {
     const deleteBtn = document.createElement('span');
     deleteBtn.classList.add('delete-page')
     deleteBtn.innerHTML = 'X';
-    deleteBtn.addEventListener('click', () => handlePageDelete(id))
+    deleteBtn.addEventListener('click', () => changeModalVisibility(id, 'delete-page'));
 
     header.appendChild(headerTitle);
     header.appendChild(headerDescription);

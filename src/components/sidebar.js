@@ -31,7 +31,7 @@ const sidebar = () => {
   addSectionTitle.addEventListener('click', () => {
     const newElm = main.newSideBarElement();
 
-    sidebarItemListContainer.appendChild(listItem(newElm.id, main.changeList));
+    sidebarItemListContainer.appendChild(listItem(newElm.id));
   })
 
   mainList.appendChild(header);

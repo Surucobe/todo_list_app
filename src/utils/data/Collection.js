@@ -187,7 +187,6 @@ const Data = (function(){
   }
 
   function deletePage(id){
-    debugger
     const index = CollectionList.findIndex((elm) => elm.id == id)
     CollectionList.splice(index, 1)
 

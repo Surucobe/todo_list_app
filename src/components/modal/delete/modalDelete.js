@@ -22,7 +22,7 @@ const modalDelete = (title, callback, deleteMethod, deleteHandler) => {
   confirm.addEventListener('click', () => {
     deleteMethod(title);
     callback();
-    if(deleteHandler != undefined) deleteHandler(title);
+    deleteHandler(title);
   })
 
   const decline = document.createElement('button');

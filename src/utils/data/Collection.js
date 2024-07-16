@@ -116,8 +116,6 @@ const Data = (function(){
     },
   ]
 
-  const getCollection = () => CollectionList;
-
   const getTitles = () => CollectionList.map(item => item.id)
 
   const getCurrentPage = () => document.querySelector('.header h2').innerHTML.toLowerCase();
@@ -227,7 +225,7 @@ const Data = (function(){
   }
 
   return {
-    getCollection, getTitles, createNewItem, createNewSection, 
+    getTitles, createNewItem, createNewSection, 
     createNewPage, deleteListItem, getCurrentPage, createNewPage, 
     findElement, modifyCheck, modifyText, modifyTitle, deleteList
   };

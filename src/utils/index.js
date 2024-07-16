@@ -5,7 +5,7 @@ import listContainer from "./list-container/list-container";
 export const renderTodoLists = function() {
   
   const {
-    getCollection, createNewItem, createNewSection, deleteListItem, getCurrentPage, 
+    createNewItem, createNewSection, deleteListItem, getCurrentPage, 
     createNewPage, findElement, modifyCheck
   } = Data;
   const { addTodoItemToList } = todoElement;
@@ -115,12 +115,7 @@ export const renderTodoLists = function() {
 
   //functions takes the container in which it will render and the name of the object that will be use for it
   const renderList = (container, ref) => {
-    let collectionToRender
-    getCollection().some((obj) => {
-      if(obj.id == ref){
-        collectionToRender = obj;
-      }
-    })
+    let collectionToRender = findElement(ref);
 
     container.appendChild(renderHeader(collectionToRender.id, collectionToRender.description));
 

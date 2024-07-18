@@ -74,6 +74,11 @@ const Data = (function(){
     elm.priority = value;
   }
 
+  function updateDate(id, value){
+    const elm = findElement(id)
+    elm.dueDate = value
+  }
+
   function modifyTitle(id, value){
     const objInCollection = findElement(id);
     let test = document.querySelector(`[data-${getCurrentPage()}='${id}']`);
@@ -128,7 +133,8 @@ const Data = (function(){
   return {
     getTitles, createNewItem, createNewSection, deletePage,
     deleteListItem, getCurrentPage, createNewPage, updatePriority,
-    findElement, modifyCheck, modifyText, modifyTitle, deleteList
+    findElement, modifyCheck, modifyText, modifyTitle, deleteList, 
+    updateDate
   };
 })()
 

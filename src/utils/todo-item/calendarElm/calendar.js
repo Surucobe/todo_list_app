@@ -1,6 +1,9 @@
 import dayjs from "dayjs";
 
-const calendarElement = (date) => {
+import Data from "../../data/Collection";
+
+const calendarElement = (id, date) => {
+  const { updateDate } = Data;
   const dueDate = document.createElement('input');
   dueDate.classList.add('due-date');
   dueDate.type = 'date';
@@ -12,8 +15,7 @@ const calendarElement = (date) => {
   }
 
   dueDate.addEventListener('change', (e) => {
-    const newDate = e.target.value;
-    console.log(typeof newDate);
+    updateDate(id, e.target.value);
   })
 
   return dueDate;

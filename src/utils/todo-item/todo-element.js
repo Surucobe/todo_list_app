@@ -31,7 +31,7 @@ const todoElement = (function(){
 
     deleteItem.addEventListener('click', () => handleDelete(obj.id, title.toLowerCase()))
 
-    const dueDate = calendarElement(obj.dueDate);
+    const dueDate = calendarElement(obj.id, obj.dueDate);
 
     const priority = priorityElement(obj.priority, obj.id);
 

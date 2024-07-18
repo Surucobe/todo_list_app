@@ -1,129 +1,21 @@
+import { CollectionList } from "./dataStorage";
 import dayjs from "dayjs";
 
 const Data = (function(){
-  const CollectionList = [
-    {
-      id: 'week',
-      title: 'Week',
-      description: 'Total accurate description',
-      todoCollection: [
-        {
-          id: 'monday',
-          title: 'Monday',
-          todoList: [
-            {
-              id: 'monday_1',
-              checked: true,
-              text: "i'm the first element inside monday",
-              //YY/MM/DD
-              dueDate: '2024-06-19',
-              priority: 'important'
-            },
-            {
-              id: 'monday_2',
-              checked: false,
-              text: "i'm the second element inside monday",
-              //YY/MM/DD
-              dueDate: '2024-06-22',
-              priority: 'low'
-            },
-          ]
-        },
-        {
-          id: 'thursday',
-          title: 'Thursday',
-          todoList: [
-            {
-              id: 'thursday_1',
-              checked: false,
-              text: "i'm the first element inside thursday",
-              //YY/MM/DD
-              dueDate: '2024-07-19',
-              priority: 'important'
-            },
-            {
-              id: 'thursday_2',
-              checked: true,
-              text: "i'm the second element inside thursday",
-              //YY/MM/DD
-              dueDate: '2024-08-22',
-              priority: 'urgent'
-            },
-            {
-              id: 'thursday_3',
-              checked: false,
-              text: "i'm the second element inside thursday",
-              //YY/MM/DD
-              dueDate: '2024-08-22',
-              priority: 'urgent'
-            },
-          ]
-        },
-      ]
-    },
-    {
-      id: 'month',
-      title: 'Month',
-      description: 'Total accurate descripton',
-      todoCollection: [
-        {
-          id: 'may',
-          title: 'May',
-          todoList: [
-            {
-              id: 'may_1',
-              checked: false,
-              text: 'totally legit text that at least is not lorem ipsum',
-              dueDate: '',
-              priority: 'important'
-            }
-          ]
-        },
-        {
-          id: 'july',
-          title: 'July',
-          todoList: [
-            {
-              id: 'may_2',
-              checked: false,
-              text: 'totally legit text that at least is not lorem ipsum',
-              dueDate: '',
-              priority: 'low'
-            }
-          ]
-        },
-      ]
-    },
-    {
-      id: 'year',
-      title: 'Year',
-      description: 'Total accurate descripton',
-      todoCollection: [
-        {
-          id:'year',
-          title: '2024',
-          todoList: [
-            {
-              id: '2024_1',
-              checked: false,
-              text: 'totally legit text that at least is not lorem ipsum',
-              dueDate: '',
-              priority: 'important'
-            }
-          ]
-        }
-      ]
-    },
-  ]
+  const CollectionLists = [...CollectionList]
 
-  const getTitles = () => CollectionList.map(item => item.id)
+  // window.localStorage.setItem('collection', JSON.stringify(CollectionLists))
+
+  console.log(JSON.parse(window.localStorage.getItem('collection')))
+
+  const getTitles = () => CollectionLists.map(item => item.id)
 
   const getCurrentPage = () => document.querySelector('.header h2').innerHTML.toLowerCase();
 
   const createItemId = (id, num) => `${id}_${num+1}`
 
   function createNewPage(){
-    CollectionList.push(
+    CollectionLists.push(
       {
         id: 'testing',
         description: 'New element added',
@@ -131,7 +23,7 @@ const Data = (function(){
       }
     )
     
-    return CollectionList[CollectionList.length-1];
+    return CollectionLists[CollectionLists.length-1];
   }
   
   function createNewListItem(id){
@@ -154,7 +46,6 @@ const Data = (function(){
     };
 
     obj.todoCollection.push(section);
-    console.log(CollectionList)
 
     return obj.todoCollection[obj.todoCollection.length-1];
   }
@@ -178,6 +69,11 @@ const Data = (function(){
     obj.text = elm
   }
 
+  function updatePriority(id, value){
+    const elm = findElement(id)
+    elm.priority = value;
+  }
+
   function modifyTitle(id, value){
     const objInCollection = findElement(id);
     let test = document.querySelector(`[data-${getCurrentPage()}='${id}']`);
@@ -187,10 +83,8 @@ const Data = (function(){
   }
 
   function deletePage(id){
-    const index = CollectionList.findIndex((elm) => elm.id == id)
-    CollectionList.splice(index, 1)
-
-    console.log(CollectionList)
+    const index = CollectionLists.findIndex((elm) => elm.id == id)
+    CollectionLists.splice(index, 1)
   }
 
   function deleteList(query){
@@ -200,7 +94,7 @@ const Data = (function(){
     current.todoCollection.splice(index, 1);
   }
 
-  function findElement(id, callback, array = CollectionList){
+  function findElement(id, callback, array = CollectionLists){
     if(!Array.isArray(array)) return
 
     for (const elm of array) {
@@ -233,7 +127,7 @@ const Data = (function(){
 
   return {
     getTitles, createNewItem, createNewSection, deletePage,
-    deleteListItem, getCurrentPage, createNewPage, 
+    deleteListItem, getCurrentPage, createNewPage, updatePriority,
     findElement, modifyCheck, modifyText, modifyTitle, deleteList
   };
 })()

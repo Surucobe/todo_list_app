@@ -1,76 +1,11 @@
-import dayjs from "dayjs";
+//TODO: fix priority and calendar to update with changes
 import Data from "../data/Collection";
+
+import priorityElement from "./priorityElm/priority";
+import calendarElement from "./calendarElm/calendar";
 
 const todoElement = (function(){
   const { modifyText, findElement } = Data
-
-  const calendarElement = (date) => {
-    const dueDate = document.createElement('input');
-    dueDate.classList.add('due-date');
-    dueDate.type = 'date';
-
-    if(date == ''){
-      dueDate.defaultValue = dayjs().format('YYYY-MM-DD');
-    }else{
-      dueDate.defaultValue = dayjs().format(date);
-    }
-
-    return dueDate;
-  }
-
-  const priorityElement = (value) => {
-    const select = document.createElement('select');
-
-    const defaultOption = document.createElement('option');
-    defaultOption.innerHTML = '- Priority -';
-    defaultOption.disabled = true;
-    defaultOption.style.color = 'white';
-    select.appendChild(defaultOption);
-
-    const low = document.createElement('option');
-    low.value = 'green';
-    low.style.color = 'green';
-    low.innerHTML = 'Low';
-    select.appendChild(low);
-
-    const important = document.createElement('option');
-    important.value = 'orange';
-    important.style.color = 'orange';
-    important.innerHTML = 'Important';
-    select.appendChild(important);
-
-    const urgent = document.createElement('option');
-    urgent.value = 'red';
-    urgent.style.color = 'red';
-    urgent.innerHTML = 'Urgent';
-    select.appendChild(urgent);
-
-    select.addEventListener('change', (e) => {
-      const color = e.target.value;
-      e.target.style.color = color;
-    })
-
-    switch (value) {
-      case 'low':
-        low.defaultSelected = true;
-        select.style.color = 'green';
-        break;
-      case 'important':
-        important.defaultSelected = true;
-        select.style.color = 'orange';
-        break;
-      case 'urgent':
-        urgent.defaultSelected = true;
-        select.style.color = 'red';
-        break;
-      default:
-        defaultOption.defaultSelected = true;
-        select.style.color = '#ccc';
-        break;
-    }
-
-    return select;
-  }
 
   const handleDataSet = (str) => str.split(' ').join('_');
 
@@ -98,7 +33,7 @@ const todoElement = (function(){
 
     const dueDate = calendarElement(obj.dueDate);
 
-    const priority = priorityElement(obj.priority);
+    const priority = priorityElement(obj.priority, obj.id);
 
     listItemContainer.appendChild(listItemInput);
     listItemContainer.appendChild(text);

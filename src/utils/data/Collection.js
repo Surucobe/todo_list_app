@@ -4,6 +4,10 @@ import dayjs from "dayjs";
 const Data = (function(){
   const CollectionLists = [...CollectionList]
 
+  function saveToLocalStorage(){
+    window.localStorage.setItem('collection', JSON.stringify(CollectionList))
+  }
+
   const getTitles = () => CollectionLists.map(item => item.id)
 
   const getCurrentPage = () => document.querySelector('.header h2').innerHTML.toLowerCase();
@@ -130,7 +134,7 @@ const Data = (function(){
     getTitles, createNewItem, createNewSection, deletePage,
     deleteListItem, getCurrentPage, createNewPage, updatePriority,
     findElement, modifyCheck, modifyText, modifyTitle, deleteList, 
-    updateDate
+    updateDate, saveToLocalStorage
   };
 })()
 

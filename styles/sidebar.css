@@ -6,6 +6,7 @@
   flex-direction: column;
   gap: 30px;
   padding-top: 12px;
+  position: relative;
 }
 
 .user-container{
@@ -50,4 +51,10 @@
     width: 85%;
     transition: .3s ease-in-out;
   }
+}
+
+.save-btn{
+  height: 30px;
+  position: absolute;
+  right: 15px;
 }

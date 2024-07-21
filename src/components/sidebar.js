@@ -4,6 +4,7 @@ import Data from '../utils/data/Collection';
 import userProfile from '../atoms/sidebar/user';
 import list from '../atoms/sidebar/list';
 import listItem from '../atoms/sidebar/list_item';
+import saveBtn from '../atoms/sidebar/saveBtn';
 
 //reserved for the import on the styles
 import '../../styles/sidebar.css';
@@ -15,8 +16,6 @@ const main = renderTodoLists();
 const sidebar = () => {
   const sidebar = document.createElement('div');
   sidebar.classList.add('sidebar-sections');
-
-  sidebar.appendChild(userProfile(userPicture));
   
   const mainList = document.createElement('div');
   mainList.classList.add('main-list');
@@ -38,7 +37,9 @@ const sidebar = () => {
   mainList.appendChild(sidebarItemListContainer);
   mainList.appendChild(addSectionTitle);
 
+  sidebar.appendChild(userProfile(userPicture));
   sidebar.appendChild(mainList);
+  sidebar.appendChild(saveBtn());
 
   return sidebar;
 }

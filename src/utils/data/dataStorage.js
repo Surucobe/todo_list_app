@@ -114,3 +114,5 @@ export const CollectionList = [
 ]
 
 window.localStorage.setItem('collection', JSON.stringify(CollectionList));
+
+window.localStorage.setItem('user', 'Suru')

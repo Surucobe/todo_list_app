@@ -4,10 +4,6 @@ import dayjs from "dayjs";
 const Data = (function(){
   const CollectionLists = [...CollectionList]
 
-  // window.localStorage.setItem('collection', JSON.stringify(CollectionLists))
-
-  console.log(JSON.parse(window.localStorage.getItem('collection')))
-
   const getTitles = () => CollectionLists.map(item => item.id)
 
   const getCurrentPage = () => document.querySelector('.header h2').innerHTML.toLowerCase();

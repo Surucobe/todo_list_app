@@ -16,7 +16,7 @@ const sidebar = () => {
   const sidebar = document.createElement('div');
   sidebar.classList.add('sidebar-sections');
 
-  sidebar.appendChild(userProfile(userPicture, 'Suru'));
+  sidebar.appendChild(userProfile(userPicture));
   
   const mainList = document.createElement('div');
   mainList.classList.add('main-list');

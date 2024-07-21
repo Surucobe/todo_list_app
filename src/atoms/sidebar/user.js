@@ -1,4 +1,4 @@
-const userProfile = (imgSrc, userName = 'user name') => {
+const userProfile = (imgSrc) => {
 
   const user = document.createElement('div');
   user.classList.add('user-container');
@@ -8,7 +8,7 @@ const userProfile = (imgSrc, userName = 'user name') => {
   user.appendChild(userImage);
 
   const userSpan = document.createElement('span');
-  userSpan.innerHTML = userName;
+  userSpan.innerHTML = window.localStorage.getItem('user');
   user.appendChild(userSpan);
 
   return user

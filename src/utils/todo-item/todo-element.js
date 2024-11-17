@@ -1,4 +1,3 @@
-//TODO: fix priority and calendar to update with changes
 import Data from "../data/Collection";
 
 import priorityElement from "./priorityElm/priority";

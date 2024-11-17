@@ -1,5 +1,7 @@
+import { collection } from "./dummy";
+
 if(window.localStorage.length < 1){
-  window.localStorage.setItem('collection', JSON.stringify(CollectionList));
+  window.localStorage.setItem('collection', JSON.stringify(collection));
   window.localStorage.setItem('user', 'Suru');
 }
 
